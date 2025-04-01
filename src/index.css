@@ -103,7 +103,7 @@
 
 @layer components {
   .glass {
-    @apply bg-white/20 backdrop-blur-sm border border-white/30 shadow-md;
+    @apply bg-white/20 backdrop-blur-sm border border-white/30 shadow-md dark:bg-slate-900/20 dark:border-slate-700/30;
   }
   
   .tile {
@@ -115,6 +115,6 @@
   }
   
   .main-layout {
-    @apply min-h-screen bg-gradient-page pb-10;
+    @apply min-h-screen bg-gradient-page pb-10 dark:bg-gradient-dark-page;
   }
 }

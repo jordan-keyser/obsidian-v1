@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 import MobileMenu from './MobileMenu';
+import ThemeToggle from './ThemeToggle';
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,11 +27,15 @@ const Header: React.FC = () => {
           <a href="#" className="font-medium hover:text-tile transition-colors">Features</a>
           <a href="#" className="font-medium hover:text-tile transition-colors">Gallery</a>
           <a href="#" className="font-medium hover:text-tile transition-colors">Contact</a>
+          <ThemeToggle />
         </nav>
         
-        <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMobileMenu}>
-          {mobileMenuOpen ? <X /> : <Menu />}
-        </Button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMobileMenu}>
+            {mobileMenuOpen ? <X /> : <Menu />}
+          </Button>
+        </div>
       </div>
       
       <MobileMenu isOpen={mobileMenuOpen} />
