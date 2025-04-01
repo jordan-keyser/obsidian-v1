@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,10 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				tile: {
+					DEFAULT: '#9b87f5',
+					hover: '#7E69AB'
 				}
 			},
 			borderRadius: {
@@ -84,11 +89,20 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'tile-pop': {
+					'0%': { transform: 'scale(1) translateY(0)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' },
+					'100%': { transform: 'scale(1.05) translateY(-5px)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.2)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'tile-pop': 'tile-pop 0.3s ease-out forwards'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-page': 'linear-gradient(to bottom right, #f0f4ff, #e5deff, #f0f4ff)'
 			}
 		}
 	},

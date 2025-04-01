@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,5 +98,23 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/20 backdrop-blur-sm border border-white/30 shadow-md;
+  }
+  
+  .tile {
+    @apply relative rounded-xl glass transition-all duration-300 overflow-hidden;
+  }
+  
+  .tile:hover {
+    @apply animate-tile-pop;
+  }
+  
+  .main-layout {
+    @apply min-h-screen bg-gradient-page pb-10;
   }
 }
