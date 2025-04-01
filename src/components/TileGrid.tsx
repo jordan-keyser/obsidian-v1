@@ -50,6 +50,22 @@ const tileData = [
     description: "Enjoy the same powerful experience on any device, anywhere.",
     buttonText: "Get Mobile",
     aspectRatio: "square" as const
+  },
+  {
+    id: 7,
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&auto=format&fit=crop",
+    title: "Developer Tools",
+    description: "Access powerful development tools to build your next big project.",
+    buttonText: "Get Started",
+    aspectRatio: "square" as const
+  },
+  {
+    id: 8,
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1200&auto=format&fit=crop",
+    title: "Cloud Storage",
+    description: "Store and access your data securely from anywhere in the world.",
+    buttonText: "Learn More",
+    aspectRatio: "square" as const
   }
 ];
 
