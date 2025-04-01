@@ -19,16 +19,8 @@ const Tile: React.FC<TileProps> = ({
   buttonAction = () => {},
   aspectRatio = 'square'
 }) => {
-  let aspectClass = 'aspect-square';
-  
-  if (aspectRatio === 'portrait') {
-    aspectClass = 'aspect-[2/3]';
-  } else if (aspectRatio === 'landscape') {
-    aspectClass = 'aspect-[3/2]';
-  }
-
   return (
-    <div className={`tile group ${aspectClass}`}>
+    <div className="tile h-[300px] w-full">
       <div className="absolute inset-0 z-0">
         <img 
           src={image} 

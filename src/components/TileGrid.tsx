@@ -9,7 +9,7 @@ const tileData = [
     title: "Digital Workspace",
     description: "Organize your projects with our intuitive workspace tools.",
     buttonText: "Explore",
-    aspectRatio: "landscape" as const
+    aspectRatio: "square" as const
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const tileData = [
     title: "Daily Analytics",
     description: "Track your progress with detailed analytics and insights.",
     buttonText: "View Stats",
-    aspectRatio: "portrait" as const
+    aspectRatio: "square" as const
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const tileData = [
     title: "Team Collaboration",
     description: "Work together effectively with real-time collaboration tools.",
     buttonText: "Join Teams",
-    aspectRatio: "landscape" as const
+    aspectRatio: "square" as const
   },
   {
     id: 5,
@@ -49,14 +49,14 @@ const tileData = [
     title: "Mobile Experience",
     description: "Enjoy the same powerful experience on any device, anywhere.",
     buttonText: "Get Mobile",
-    aspectRatio: "portrait" as const
+    aspectRatio: "square" as const
   }
 ];
 
 const TileGrid: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {tileData.map(tile => (
           <Tile
             key={tile.id}
