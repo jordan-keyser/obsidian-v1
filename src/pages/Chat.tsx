@@ -17,15 +17,17 @@ import {
 } from '../components/ui/sidebar';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
-import { Send, Plus, FolderOpen, BookOpenText, Settings, Cpu, BrainCircuit, Palette, UserRound } from 'lucide-react';
+import { Send, Plus, FolderOpen, BookOpenText, Settings, Cpu, BrainCircuit, Palette, UserRound, Briefcase, Calculator, FileText } from 'lucide-react';
 import { Separator } from '../components/ui/separator';
 import { ScrollArea } from '../components/ui/scroll-area';
 
 const personaData = [
-  { id: 1, title: 'Analyst', icon: <BrainCircuit className="h-8 w-8" />, description: 'For data analysis and insights' },
-  { id: 2, title: 'Creative', icon: <Palette className="h-8 w-8" />, description: 'For creative writing and ideas' },
-  { id: 3, title: 'Technical', icon: <Cpu className="h-8 w-8" />, description: 'For technical questions and solutions' },
-  { id: 4, title: 'Assistant', icon: <UserRound className="h-8 w-8" />, description: 'For general assistance' },
+  { id: 1, title: 'Analyst', icon: <BrainCircuit className="h-6 w-6" />, description: 'For data analysis and insights' },
+  { id: 2, title: 'Creative', icon: <Palette className="h-6 w-6" />, description: 'For creative writing and ideas' },
+  { id: 3, title: 'Technical', icon: <Cpu className="h-6 w-6" />, description: 'For technical questions and solutions' },
+  { id: 4, title: 'Assistant', icon: <UserRound className="h-6 w-6" />, description: 'For general assistance' },
+  { id: 5, title: 'Business', icon: <Briefcase className="h-6 w-6" />, description: 'For business strategy and advice' },
+  { id: 6, title: 'Finance', icon: <Calculator className="h-6 w-6" />, description: 'For financial analysis and planning' },
 ];
 
 const Chat: React.FC = () => {
@@ -127,23 +129,23 @@ const Chat: React.FC = () => {
               {/* Top Persona Selection */}
               <div className="py-4 px-6 border-b">
                 <h2 className="text-lg font-medium mb-3">Select a Persona</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div className="flex flex-wrap gap-3 justify-between">
                   {personaData.map((persona) => (
                     <div 
                       key={persona.id}
                       onClick={() => setSelectedPersona(persona.id)}
-                      className={`flex flex-col items-center justify-center p-3 rounded-md cursor-pointer transition-all ${
+                      className={`flex flex-col items-center justify-center p-2 rounded-md cursor-pointer transition-all w-[calc(16.666%-10px)] min-w-[80px] ${
                         selectedPersona === persona.id 
                           ? 'bg-crowe-gold/20 border-2 border-crowe-gold' 
                           : 'bg-background hover:bg-muted border border-border'
                       }`}
                     >
-                      <div className={`p-2 rounded-full mb-2 ${
+                      <div className={`p-1 rounded-full mb-1 ${
                         selectedPersona === persona.id ? 'text-crowe-gold' : 'text-muted-foreground'
                       }`}>
                         {persona.icon}
                       </div>
-                      <span className="font-medium text-sm">{persona.title}</span>
+                      <span className="font-medium text-xs text-center">{persona.title}</span>
                     </div>
                   ))}
                 </div>
