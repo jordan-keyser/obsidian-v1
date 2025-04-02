@@ -41,7 +41,8 @@ const tileData = [
     title: "Project Planning",
     description: "Plan your projects with intuitive scheduling and milestones.",
     buttonText: "Start Planning",
-    aspectRatio: "square" as const
+    aspectRatio: "square" as const,
+    hasLock: true
   },
   {
     id: 6,
@@ -49,7 +50,8 @@ const tileData = [
     title: "Mobile Experience",
     description: "Enjoy the same powerful experience on any device, anywhere.",
     buttonText: "Get Mobile",
-    aspectRatio: "square" as const
+    aspectRatio: "square" as const,
+    hasLock: true
   },
   {
     id: 7,
@@ -65,7 +67,8 @@ const tileData = [
     title: "Cloud Storage",
     description: "Store and access your data securely from anywhere in the world.",
     buttonText: "Learn More",
-    aspectRatio: "square" as const
+    aspectRatio: "square" as const,
+    hasLock: true
   }
 ];
 
@@ -81,6 +84,7 @@ const TileGrid: React.FC = () => {
             description={tile.description}
             buttonText={tile.buttonText}
             aspectRatio={tile.aspectRatio}
+            hasLock={tile.hasLock}
             buttonAction={() => console.log(`Clicked on ${tile.title}`)}
           />
         ))}

@@ -30,7 +30,7 @@ const Header: React.FC = () => {
           <h1 className="text-xl font-bold">Crowe AGI</h1>
         </div>
         
-        <nav className="hidden md:flex space-x-6">
+        <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
           <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Home</a>
           <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Dashboard</a>
           <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Shop</a>

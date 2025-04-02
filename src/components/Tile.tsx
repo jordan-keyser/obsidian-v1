@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from './ui/button';
+import { Plus, Lock } from 'lucide-react';
 
 interface TileProps {
   image: string;
@@ -9,6 +10,7 @@ interface TileProps {
   buttonText: string;
   buttonAction?: () => void;
   aspectRatio?: 'square' | 'portrait' | 'landscape';
+  hasLock?: boolean;
 }
 
 const Tile: React.FC<TileProps> = ({
@@ -17,7 +19,8 @@ const Tile: React.FC<TileProps> = ({
   description,
   buttonText,
   buttonAction = () => {},
-  aspectRatio = 'square'
+  aspectRatio = 'square',
+  hasLock = false
 }) => {
   return (
     <div className="tile h-[300px] w-full">
@@ -33,12 +36,31 @@ const Tile: React.FC<TileProps> = ({
       <div className="relative z-10 h-full flex flex-col justify-end p-6 text-white">
         <h3 className="text-xl font-bold mb-2">{title}</h3>
         <p className="text-sm mb-4 text-white/90">{description}</p>
-        <Button 
-          onClick={buttonAction}
-          className="bg-crowe-gold hover:bg-crowe-gold/80 transition-colors w-full justify-center"
-        >
-          {buttonText}
-        </Button>
+        
+        {hasLock ? (
+          <div className="flex gap-2">
+            <Button 
+              disabled
+              className="bg-crowe-gold hover:bg-crowe-gold/80 transition-colors flex-1 justify-center"
+            >
+              <Lock className="mr-2 h-4 w-4" />
+              {buttonText}
+            </Button>
+            <Button 
+              onClick={buttonAction}
+              className="bg-crowe-dark hover:bg-crowe-dark/80 transition-colors"
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+        ) : (
+          <Button 
+            onClick={buttonAction}
+            className="bg-crowe-gold hover:bg-crowe-gold/80 transition-colors w-full justify-center"
+          >
+            {buttonText}
+          </Button>
+        )}
       </div>
     </div>
   );
