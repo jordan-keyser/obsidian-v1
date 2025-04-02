@@ -102,8 +102,8 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'gradient-page': 'linear-gradient(to bottom right, #f0f4ff, #002D62, #f0f4ff)',
-				'gradient-dark-page': 'linear-gradient(to bottom right, #1A1F2C, #DBA51A, #1A1F2C)'
+				'gradient-page': 'linear-gradient(to bottom right, #f9f9ff, rgba(0, 45, 98, 0.05), #f9f9ff)',
+				'gradient-dark-page': 'linear-gradient(to bottom right, #1A1F2C, rgba(219, 165, 26, 0.05), #1A1F2C)'
 			}
 		}
 	},
