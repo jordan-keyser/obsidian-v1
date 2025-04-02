@@ -63,9 +63,9 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				tile: {
-					DEFAULT: '#9b87f5',
-					hover: '#7E69AB'
+				crowe: {
+					dark: '#002D62',
+					gold: '#DBA51A'
 				}
 			},
 			borderRadius: {

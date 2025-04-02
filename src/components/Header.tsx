@@ -24,22 +24,20 @@ const Header: React.FC = () => {
     <header className="sticky top-0 z-50 w-full glass py-4 px-6">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <div className="h-10 w-10 rounded-md bg-tile/80 mr-3 flex items-center justify-center">
-            <span className="text-white font-bold text-xl">T</span>
+          <div className="h-10 w-10 rounded-md bg-crowe-dark mr-3 flex items-center justify-center">
+            <span className="text-white font-bold text-xl">C</span>
           </div>
-          <h1 className="text-xl font-bold">TileBurst</h1>
+          <h1 className="text-xl font-bold">Crowe AGI</h1>
         </div>
         
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="font-medium hover:text-tile transition-colors">Home</a>
-          <a href="#" className="font-medium hover:text-tile transition-colors">Features</a>
-          <a href="#" className="font-medium hover:text-tile transition-colors">Gallery</a>
-          <a href="#" className="font-medium hover:text-tile transition-colors">Contact</a>
+          <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Home</a>
+          <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Dashboard</a>
+          <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Shop</a>
+          <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Contact</a>
         </nav>
         
         <div className="flex items-center gap-3">
-          <ThemeToggle />
-          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 border border-input">
