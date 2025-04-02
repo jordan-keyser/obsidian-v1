@@ -35,7 +35,7 @@ const Tile: React.FC<TileProps> = ({
         <p className="text-sm mb-4 text-white/90">{description}</p>
         <Button 
           onClick={buttonAction}
-          className="bg-tile hover:bg-tile-hover transition-colors w-full justify-center"
+          className="bg-crowe-gold hover:bg-crowe-gold/80 transition-colors w-full justify-center"
         >
           {buttonText}
         </Button>
