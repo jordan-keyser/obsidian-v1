@@ -9,7 +9,8 @@ const tileData = [
     title: "Digital Workspace",
     description: "Organize your projects with our intuitive workspace tools.",
     buttonText: "Explore",
-    aspectRatio: "square" as const
+    aspectRatio: "square" as const,
+    hasLock: true
   },
   {
     id: 2,
@@ -17,7 +18,8 @@ const tileData = [
     title: "Daily Analytics",
     description: "Track your progress with detailed analytics and insights.",
     buttonText: "View Stats",
-    aspectRatio: "square" as const
+    aspectRatio: "square" as const,
+    hasLock: true
   },
   {
     id: 3,
@@ -25,7 +27,8 @@ const tileData = [
     title: "Data Visualization",
     description: "Transform complex data into clear, beautiful visualizations.",
     buttonText: "See Examples",
-    aspectRatio: "square" as const
+    aspectRatio: "square" as const,
+    hasLock: true
   },
   {
     id: 4,
@@ -33,7 +36,8 @@ const tileData = [
     title: "Team Collaboration",
     description: "Work together effectively with real-time collaboration tools.",
     buttonText: "Join Teams",
-    aspectRatio: "square" as const
+    aspectRatio: "square" as const,
+    hasLock: true
   },
   {
     id: 5,

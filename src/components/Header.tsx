@@ -30,10 +30,11 @@ const Header: React.FC = () => {
     <header className="sticky top-0 z-50 w-full glass py-4 px-6">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <div className="h-10 w-10 rounded-md bg-crowe-dark mr-3 flex items-center justify-center">
-            <span className="text-white font-bold text-xl">C</span>
-          </div>
-          <h1 className="text-xl font-bold">Crowe AGI</h1>
+          <img 
+            src="/lovable-uploads/a77d3106-824a-4647-8cc8-b594818529bc.png" 
+            alt="Crowe Logo" 
+            className="h-10 mr-3"
+          />
         </div>
         
         <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
@@ -44,22 +45,22 @@ const Header: React.FC = () => {
             Home
           </Link>
           <Link 
-            to="/dashboard" 
-            className={`font-medium transition-colors ${isActive('/dashboard') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            to="/chat" 
+            className={`font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
-            Dashboard
+            Chat
           </Link>
           <Link 
-            to="/shop" 
-            className={`font-medium transition-colors ${isActive('/shop') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            to="/gallery" 
+            className={`font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
-            Shop
+            Gallery
           </Link>
           <Link 
-            to="/contact" 
-            className={`font-medium transition-colors ${isActive('/contact') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            to="/feedback" 
+            className={`font-medium transition-colors ${isActive('/feedback') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
-            Contact
+            Feedback
           </Link>
         </nav>
         
