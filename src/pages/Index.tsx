@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Header from '../components/Header';
-import TileGrid from '../components/TileGrid';
+import HomeTileGrid from '../components/HomeTileGrid';
 import ChatInput from '../components/ChatInput';
 
 const Index: React.FC = () => {
@@ -19,7 +19,7 @@ const Index: React.FC = () => {
           </div>
         </section>
         
-        <TileGrid />
+        <HomeTileGrid />
         
         <section className="container mx-auto px-4 py-12 mb-16">
           <ChatInput />

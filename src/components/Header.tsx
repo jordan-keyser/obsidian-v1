@@ -4,6 +4,7 @@ import { Menu, X, User, Settings } from 'lucide-react';
 import { Button } from './ui/button';
 import MobileMenu from './MobileMenu';
 import ThemeToggle from './ThemeToggle';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -15,9 +16,14 @@ import {
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const location = useLocation();
+  
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
   };
 
   return (
@@ -31,10 +37,30 @@ const Header: React.FC = () => {
         </div>
         
         <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
-          <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Home</a>
-          <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Dashboard</a>
-          <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Shop</a>
-          <a href="#" className="font-medium hover:text-crowe-gold transition-colors">Contact</a>
+          <Link 
+            to="/" 
+            className={`font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+          >
+            Home
+          </Link>
+          <Link 
+            to="/dashboard" 
+            className={`font-medium transition-colors ${isActive('/dashboard') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+          >
+            Dashboard
+          </Link>
+          <Link 
+            to="/shop" 
+            className={`font-medium transition-colors ${isActive('/shop') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+          >
+            Shop
+          </Link>
+          <Link 
+            to="/contact" 
+            className={`font-medium transition-colors ${isActive('/contact') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+          >
+            Contact
+          </Link>
         </nav>
         
         <div className="flex items-center gap-3">
