@@ -1,36 +1,11 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import ShopTileGrid from '../components/ShopTileGrid';
 import SearchBar from '../components/SearchBar';
 
 const Gallery: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  /**
-   * Add scroll effects to the page
-   */
-  useEffect(() => {
-    // Handle scroll event to create dynamic effects
-    const handleScroll = () => {
-      const scrollPos = window.scrollY;
-      const header = document.querySelector('header');
-      
-      if (header) {
-        // Add shadow effect below header when scrolling
-        const fadeOpacity = Math.min(scrollPos / 200, 0.15);
-        
-        // Apply fade gradient below header
-        header.style.boxShadow = scrollPos > 10 
-          ? `0 10px 15px -3px rgba(0, 0, 0, ${fadeOpacity}), 0 4px 6px -4px rgba(0, 0, 0, ${fadeOpacity})`
-          : 'none';
-      }
-    };
-
-    // Add and remove event listeners
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [searchTerm, setSearchTerm] = React.useState('');
 
   return (
     <div className="main-layout">

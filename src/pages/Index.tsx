@@ -16,20 +16,13 @@ const Index: React.FC = () => {
     // Handle scroll event to create dynamic effects
     const handleScroll = () => {
       const scrollPos = window.scrollY;
-      const header = document.querySelector('header');
       const mainContent = document.querySelector('main');
       
-      if (header && mainContent) {
-        // Add blur effect below header when scrolling
-        const blurAmount = Math.min(scrollPos / 100, 8);
-        const fadeOpacity = Math.min(scrollPos / 200, 0.15);
+      if (mainContent) {
+        // Add subtle blur to main content as you scroll
+        const blurAmount = Math.min(scrollPos / 200, 3);
         
-        // Apply blur and fade gradient below header
-        header.style.boxShadow = scrollPos > 10 
-          ? `0 10px 15px -3px rgba(0, 0, 0, ${fadeOpacity}), 0 4px 6px -4px rgba(0, 0, 0, ${fadeOpacity})`
-          : 'none';
-        
-        // Add blur to main content as you scroll
+        // Apply blur to main content
         mainContent.style.backdropFilter = `blur(${blurAmount}px)`;
       }
     };

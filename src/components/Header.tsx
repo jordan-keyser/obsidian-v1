@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, User, Settings } from 'lucide-react';
 import { Button } from './ui/button';
 import MobileMenu from './MobileMenu';
@@ -16,8 +16,23 @@ import {
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   
+  // Add scroll detection
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -26,8 +41,15 @@ const Header: React.FC = () => {
     return location.pathname === path;
   };
 
+  // Generate header class with conditional opacity based on scroll position
+  const headerClass = `sticky top-0 z-50 w-full py-4 px-6 transition-all duration-300 ${
+    scrolled 
+      ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800' 
+      : 'glass'
+  }`;
+
   return (
-    <header className="sticky top-0 z-50 w-full glass py-4 px-6">
+    <header className={headerClass}>
       <div className="flex justify-between items-center w-full">
         <div className="flex-none pl-2">
           <img 
