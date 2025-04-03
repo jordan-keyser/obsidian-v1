@@ -55,12 +55,12 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="flex flex-col h-screen w-full overflow-hidden">
       <Header />
       
       <SidebarProvider>
-        <div className="flex flex-1 h-[calc(100vh-72px)] overflow-hidden">
-          <Sidebar>
+        <div className="flex flex-1 h-[calc(100vh-72px)] overflow-hidden relative">
+          <Sidebar className="mt-0 pt-0">
             <SidebarHeader>
               <div className="flex items-center">
                 <h2 className="text-lg font-semibold">Chats</h2>
