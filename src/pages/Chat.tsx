@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import { 
@@ -55,11 +54,11 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="main-layout">
       <Header />
       
       <SidebarProvider>
-        <div className="flex flex-1 h-[calc(100vh-72px)] overflow-hidden">
+        <div className="flex h-[calc(100vh-72px)] w-full">
           <Sidebar>
             <SidebarHeader>
               <div className="flex items-center">
@@ -149,7 +148,7 @@ const Chat: React.FC = () => {
               </div>
             </div>
             
-            <ScrollArea className="flex-grow overflow-y-auto px-6 py-4">
+            <ScrollArea className="flex-grow p-6">
               {chatHistory.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
                   <Cpu className="h-12 w-12 mb-4" />
@@ -178,7 +177,7 @@ const Chat: React.FC = () => {
               )}
             </ScrollArea>
             
-            <div className="border-t p-4 bg-background">
+            <div className="border-t p-4 flex-shrink-0 bg-background">
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <Input
                   value={message}
