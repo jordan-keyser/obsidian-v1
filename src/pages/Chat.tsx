@@ -23,39 +23,42 @@ const Chat: React.FC = () => {
   } = useChat();
 
   return (
-    <div className="main-layout flex flex-col h-screen">
+    <div className="flex flex-col h-screen overflow-hidden">
       {/* Header component */}
       <Header />
       
-      {/* Sidebar provider for the chat interface - with flex-1 to take remaining height */}
-      <SidebarProvider className="flex-1 overflow-hidden">
-        <div className="flex h-full w-full">
-          {/* Left sidebar with chat options */}
-          <ChatSidebar />
-          
-          {/* Main chat area with fixed positioning for input */}
-          <SidebarInset className="p-0 flex flex-col h-full overflow-hidden">
-            {/* Persona selector at the top */}
-            <PersonaSelector
-              selectedPersona={selectedPersona}
-              setSelectedPersona={setSelectedPersona}
-            />
+      {/* Main content area - takes remaining height */}
+      <div className="flex-1 overflow-hidden">
+        {/* Sidebar provider for the chat interface */}
+        <SidebarProvider className="h-full">
+          <div className="flex h-full w-full">
+            {/* Left sidebar with chat options */}
+            <ChatSidebar />
             
-            {/* Message list in the middle - with padding at bottom to prevent messages being hidden under input */}
-            <div className="flex-1 overflow-y-auto pb-[120px]">
-              <ChatMessageList chatHistory={chatHistory} />
-            </div>
-            
-            {/* Input form fixed at the bottom */}
-            <div className="absolute bottom-0 left-0 right-0 w-full">
-              <ChatInputForm
-                onSendMessage={sendMessage}
-                isDisabled={!isReady}
+            {/* Main chat area with fixed positioning for input */}
+            <SidebarInset className="p-0 flex flex-col h-full relative">
+              {/* Persona selector at the top */}
+              <PersonaSelector
+                selectedPersona={selectedPersona}
+                setSelectedPersona={setSelectedPersona}
               />
-            </div>
-          </SidebarInset>
-        </div>
-      </SidebarProvider>
+              
+              {/* Message list in the middle - with bottom padding to ensure messages aren't hidden under input */}
+              <div className="flex-1 overflow-y-auto pb-[120px]">
+                <ChatMessageList chatHistory={chatHistory} />
+              </div>
+              
+              {/* Input form fixed at the bottom */}
+              <div className="absolute bottom-0 left-0 right-0 w-full bg-background">
+                <ChatInputForm
+                  onSendMessage={sendMessage}
+                  isDisabled={!isReady}
+                />
+              </div>
+            </SidebarInset>
+          </div>
+        </SidebarProvider>
+      </div>
     </div>
   );
 };
