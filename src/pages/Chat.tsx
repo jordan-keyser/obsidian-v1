@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import { 
@@ -59,7 +58,7 @@ const Chat: React.FC = () => {
       <Header />
       
       <SidebarProvider>
-        <div className="flex min-h-[calc(100vh-72px)] w-full">
+        <div className="flex h-[calc(100vh-72px)] w-full">
           <Sidebar>
             <SidebarHeader>
               <div className="flex items-center">
@@ -124,78 +123,73 @@ const Chat: React.FC = () => {
             </SidebarFooter>
           </Sidebar>
           
-          <SidebarInset className="p-0">
-            <div className="flex flex-col h-full">
-              {/* Top Persona Selection */}
-              <div className="py-4 px-6 border-b">
-                <h2 className="text-lg font-medium mb-3">Select a Persona</h2>
-                <div className="flex flex-wrap gap-3 justify-between">
-                  {personaData.map((persona) => (
+          <SidebarInset className="p-0 flex flex-col">
+            <div className="py-4 px-6 border-b flex-shrink-0">
+              <h2 className="text-lg font-medium mb-3">Select a Persona</h2>
+              <div className="flex flex-wrap gap-3 justify-between">
+                {personaData.map((persona) => (
+                  <div 
+                    key={persona.id}
+                    onClick={() => setSelectedPersona(persona.id)}
+                    className={`flex flex-col items-center justify-center p-2 rounded-md cursor-pointer transition-all w-[calc(16.666%-10px)] min-w-[80px] ${
+                      selectedPersona === persona.id 
+                        ? 'bg-crowe-gold/20 border-2 border-crowe-gold' 
+                        : 'bg-background hover:bg-muted border border-border'
+                    }`}
+                  >
+                    <div className={`p-1 rounded-full mb-1 ${
+                      selectedPersona === persona.id ? 'text-crowe-gold' : 'text-muted-foreground'
+                    }`}>
+                      {persona.icon}
+                    </div>
+                    <span className="font-medium text-xs text-center">{persona.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <ScrollArea className="flex-grow p-6">
+              {chatHistory.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
+                  <Cpu className="h-12 w-12 mb-4" />
+                  <h3 className="text-lg font-medium">Start a conversation</h3>
+                  <p className="max-w-md mt-2">
+                    Select a persona above and start typing to interact with the AI assistant.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {chatHistory.map((entry, index) => (
                     <div 
-                      key={persona.id}
-                      onClick={() => setSelectedPersona(persona.id)}
-                      className={`flex flex-col items-center justify-center p-2 rounded-md cursor-pointer transition-all w-[calc(16.666%-10px)] min-w-[80px] ${
-                        selectedPersona === persona.id 
-                          ? 'bg-crowe-gold/20 border-2 border-crowe-gold' 
-                          : 'bg-background hover:bg-muted border border-border'
-                      }`}
+                      key={index} 
+                      className={`flex ${entry.role === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
-                      <div className={`p-1 rounded-full mb-1 ${
-                        selectedPersona === persona.id ? 'text-crowe-gold' : 'text-muted-foreground'
+                      <div className={`max-w-3xl rounded-lg p-4 ${
+                        entry.role === 'user' 
+                          ? 'bg-crowe-gold/20 text-foreground ml-12' 
+                          : 'bg-muted text-foreground mr-12'
                       }`}>
-                        {persona.icon}
+                        {entry.content}
                       </div>
-                      <span className="font-medium text-xs text-center">{persona.title}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-              
-              {/* Chat Content Area */}
-              <ScrollArea className="flex-grow p-6">
-                {chatHistory.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
-                    <Cpu className="h-12 w-12 mb-4" />
-                    <h3 className="text-lg font-medium">Start a conversation</h3>
-                    <p className="max-w-md mt-2">
-                      Select a persona above and start typing to interact with the AI assistant.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-6">
-                    {chatHistory.map((entry, index) => (
-                      <div 
-                        key={index} 
-                        className={`flex ${entry.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                      >
-                        <div className={`max-w-3xl rounded-lg p-4 ${
-                          entry.role === 'user' 
-                            ? 'bg-crowe-gold/20 text-foreground ml-12' 
-                            : 'bg-muted text-foreground mr-12'
-                        }`}>
-                          {entry.content}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </ScrollArea>
-              
-              {/* Chat Input Area */}
-              <div className="border-t p-4">
-                <form onSubmit={handleSubmit} className="flex gap-2">
-                  <Input
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type your message here..."
-                    className="flex-grow"
-                  />
-                  <Button type="submit" disabled={!message.trim() || !selectedPersona}>
-                    <Send className="h-4 w-4 mr-2" />
-                    Send
-                  </Button>
-                </form>
-              </div>
+              )}
+            </ScrollArea>
+            
+            <div className="border-t p-4 flex-shrink-0 bg-background">
+              <form onSubmit={handleSubmit} className="flex gap-2">
+                <Input
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Type your message here..."
+                  className="flex-grow"
+                />
+                <Button type="submit" disabled={!message.trim() || !selectedPersona}>
+                  <Send className="h-4 w-4 mr-2" />
+                  Send
+                </Button>
+              </form>
             </div>
           </SidebarInset>
         </div>
