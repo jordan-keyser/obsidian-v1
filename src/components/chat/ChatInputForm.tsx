@@ -1,8 +1,8 @@
 
-import React, { useState, FormEvent, KeyboardEvent } from 'react';
+import React, { useState, FormEvent, KeyboardEvent, useRef } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { Send } from 'lucide-react';
+import { Send, FileUp } from 'lucide-react';
 
 /**
  * Props for the ChatInputForm component
@@ -20,6 +20,8 @@ interface ChatInputFormProps {
 const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled }) => {
   // State for the current message being typed
   const [message, setMessage] = useState('');
+  // Reference for the file input element
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   /**
    * Handle form submission
@@ -46,9 +48,46 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
     }
   };
 
+  /**
+   * Handle file button click - triggers hidden file input
+   */
+  const handleFileButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  /**
+   * Handle file selection
+   */
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // In a real implementation, you would handle the file upload here
+    console.log('Selected files:', e.target.files);
+    // Reset the input so the same file can be selected again
+    e.target.value = '';
+  };
+
   return (
     <div className="border-t p-4 flex-shrink-0 bg-background">
       <form onSubmit={handleSubmit} className="flex gap-2">
+        {/* Hidden file input */}
+        <input 
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          className="hidden"
+          multiple
+        />
+        
+        {/* File upload button */}
+        <Button 
+          type="button" 
+          variant="outline"
+          onClick={handleFileButtonClick}
+          disabled={isDisabled}
+          aria-label="Upload file"
+        >
+          <FileUp className="h-4 w-4" />
+        </Button>
+        
         {/* Message input field */}
         <Input
           value={message}
@@ -60,15 +99,27 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
           className="flex-grow"
         />
         
-        {/* Send button */}
-        <Button 
-          type="submit" 
-          disabled={isDisabled || !message.trim()}
-          aria-label="Send message"
-        >
-          <Send className="h-4 w-4 mr-2" />
-          Send
-        </Button>
+        {/* Send button with Beam button below */}
+        <div className="flex flex-col gap-2">
+          <Button 
+            type="submit" 
+            disabled={isDisabled || !message.trim()}
+            aria-label="Send message"
+          >
+            <Send className="h-4 w-4 mr-2" />
+            Send
+          </Button>
+          
+          <Button 
+            type="button"
+            variant="secondary"
+            className="dark:bg-crowe-gold dark:hover:bg-crowe-gold/80 dark:text-black"
+            disabled={isDisabled}
+            aria-label="Beam message"
+          >
+            Beam
+          </Button>
+        </div>
       </form>
     </div>
   );

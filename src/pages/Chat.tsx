@@ -33,8 +33,8 @@ const Chat: React.FC = () => {
           {/* Left sidebar with chat options */}
           <ChatSidebar />
           
-          {/* Main chat area */}
-          <SidebarInset className="p-0 flex flex-col overflow-hidden">
+          {/* Main chat area with fixed positioning for input */}
+          <SidebarInset className="p-0 flex flex-col h-full overflow-hidden relative">
             {/* Persona selector at the top */}
             <PersonaSelector
               selectedPersona={selectedPersona}
@@ -42,13 +42,17 @@ const Chat: React.FC = () => {
             />
             
             {/* Message list in the middle */}
-            <ChatMessageList chatHistory={chatHistory} />
+            <div className="flex-1 overflow-y-auto pb-24">
+              <ChatMessageList chatHistory={chatHistory} />
+            </div>
             
-            {/* Input form at the bottom */}
-            <ChatInputForm
-              onSendMessage={sendMessage}
-              isDisabled={!isReady}
-            />
+            {/* Input form fixed at the bottom */}
+            <div className="absolute bottom-0 left-0 right-0">
+              <ChatInputForm
+                onSendMessage={sendMessage}
+                isDisabled={!isReady}
+              />
+            </div>
           </SidebarInset>
         </div>
       </SidebarProvider>
