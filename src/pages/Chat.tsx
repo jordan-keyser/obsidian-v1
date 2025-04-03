@@ -23,33 +23,33 @@ const Chat: React.FC = () => {
   } = useChat();
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen">
       {/* Header component */}
       <Header />
       
       {/* Main content area - takes remaining height */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 flex">
         {/* Sidebar provider for the chat interface */}
-        <SidebarProvider className="h-full">
+        <SidebarProvider className="h-full w-full">
           <div className="flex h-full w-full">
             {/* Left sidebar with chat options */}
             <ChatSidebar />
             
             {/* Main chat area with fixed positioning for input */}
-            <SidebarInset className="p-0 flex flex-col h-full relative">
+            <SidebarInset className="p-0 flex flex-col h-full">
               {/* Persona selector at the top */}
               <PersonaSelector
                 selectedPersona={selectedPersona}
                 setSelectedPersona={setSelectedPersona}
               />
               
-              {/* Message list in the middle - with bottom padding to ensure messages aren't hidden under input */}
-              <div className="flex-1 overflow-y-auto pb-[120px]">
+              {/* Message list in the middle - scrollable area with proper padding for input */}
+              <div className="flex-1 overflow-y-auto pb-[140px]">
                 <ChatMessageList chatHistory={chatHistory} />
               </div>
               
-              {/* Input form fixed at the bottom */}
-              <div className="absolute bottom-0 left-0 right-0 w-full bg-background">
+              {/* Input form sticky at the bottom with padding */}
+              <div className="sticky bottom-0 left-0 right-0 w-full bg-background pb-4">
                 <ChatInputForm
                   onSendMessage={sendMessage}
                   isDisabled={!isReady}

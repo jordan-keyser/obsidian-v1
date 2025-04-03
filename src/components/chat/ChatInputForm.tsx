@@ -84,10 +84,10 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
           onClick={handleFileButtonClick}
           disabled={isDisabled}
           aria-label="Upload file"
-          className="flex flex-col items-center gap-1 px-2"
+          className="flex-row items-center h-[84px]"
         >
-          <FileUp className="h-4 w-4" />
-          <span className="text-xs">Files</span>
+          <FileUp className="h-4 w-4 mr-2" />
+          <span>Files</span>
         </Button>
         
         {/* Message input field - with increased height to match the send+beam buttons */}
