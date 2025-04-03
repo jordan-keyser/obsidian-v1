@@ -103,7 +103,7 @@
 
 @layer components {
   .glass {
-    @apply bg-white/20 backdrop-blur-sm border border-white/30 shadow-md dark:bg-slate-900/20 dark:border-slate-700/30;
+    @apply bg-white/80 backdrop-blur-sm border border-white/50 shadow-md dark:bg-slate-900/80 dark:border-slate-700/50;
   }
   
   .tile {

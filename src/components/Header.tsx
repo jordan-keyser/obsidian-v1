@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import MobileMenu from './MobileMenu';
 import ThemeToggle from './ThemeToggle';
 import { Link, useLocation } from 'react-router-dom';
+import { useTheme } from '@/contexts/ThemeContext';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -18,6 +19,7 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { theme } = useTheme();
   
   // Add scroll detection
   useEffect(() => {
@@ -44,7 +46,7 @@ const Header: React.FC = () => {
   // Generate header class with conditional opacity based on scroll position
   const headerClass = `sticky top-0 z-50 w-full py-4 px-6 transition-all duration-300 ${
     scrolled 
-      ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800' 
+      ? 'bg-white/98 dark:bg-slate-900/98 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800' 
       : 'glass'
   }`;
 
@@ -52,11 +54,19 @@ const Header: React.FC = () => {
     <header className={headerClass}>
       <div className="flex justify-between items-center w-full">
         <div className="flex-none pl-2">
-          <img 
-            src="/lovable-uploads/a77d3106-824a-4647-8cc8-b594818529bc.png" 
-            alt="Crowe Logo" 
-            className="h-10"
-          />
+          {theme === 'light' ? (
+            <img 
+              src="/lovable-uploads/e4a7a215-090b-491a-ad9b-29ba4aa18a9d.png" 
+              alt="Crowe Logo" 
+              className="h-10"
+            />
+          ) : (
+            <img 
+              src="/lovable-uploads/0b122a36-1e8b-4453-b25e-0aa892eafb2e.png" 
+              alt="Crowe Logo" 
+              className="h-10"
+            />
+          )}
         </div>
         
         <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">

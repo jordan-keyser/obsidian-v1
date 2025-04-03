@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import HomeTileGrid from '../components/HomeTileGrid';
 import ChatInput from '../components/ChatInput';
@@ -9,29 +9,6 @@ import ChatInput from '../components/ChatInput';
  * @returns {JSX.Element} Index component
  */
 const Index: React.FC = () => {
-  /**
-   * Add scroll effects to the page
-   */
-  useEffect(() => {
-    // Handle scroll event to create dynamic effects
-    const handleScroll = () => {
-      const scrollPos = window.scrollY;
-      const mainContent = document.querySelector('main');
-      
-      if (mainContent) {
-        // Add subtle blur to main content as you scroll
-        const blurAmount = Math.min(scrollPos / 200, 3);
-        
-        // Apply blur to main content
-        mainContent.style.backdropFilter = `blur(${blurAmount}px)`;
-      }
-    };
-
-    // Add and remove event listeners
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="main-layout">
       {/* Header component */}
