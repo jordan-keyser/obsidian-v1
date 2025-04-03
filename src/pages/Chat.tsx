@@ -20,6 +20,7 @@ import { Button } from '../components/ui/button';
 import { Send, Plus, FolderOpen, BookOpenText, Settings, Cpu, BrainCircuit, Palette, UserRound, Briefcase, Calculator, FileText } from 'lucide-react';
 import { Separator } from '../components/ui/separator';
 import { ScrollArea } from '../components/ui/scroll-area';
+import { Textarea } from '../components/ui/textarea';
 
 const personaData = [
   { id: 1, title: 'Analyst', icon: <BrainCircuit className="h-6 w-6" />, description: 'For data analysis and insights' },
@@ -58,8 +59,8 @@ const Chat: React.FC = () => {
     <div className="flex flex-col h-screen w-full overflow-hidden">
       <Header />
       
-      <SidebarProvider>
-        <div className="flex flex-1 h-[calc(100vh-72px)] overflow-hidden relative">
+      <div className="flex flex-1 h-[calc(100vh-72px)] overflow-hidden relative">
+        <SidebarProvider>
           <Sidebar className="mt-0 pt-0">
             <SidebarHeader>
               <div className="flex items-center">
@@ -124,7 +125,7 @@ const Chat: React.FC = () => {
             </SidebarFooter>
           </Sidebar>
           
-          <SidebarInset className="p-0 flex flex-col">
+          <div className="flex-1 flex flex-col overflow-hidden">
             <div className="py-4 px-6 border-b flex-shrink-0">
               <h2 className="text-lg font-medium mb-3">Select a Persona</h2>
               <div className="flex flex-wrap gap-3 justify-between">
@@ -192,9 +193,9 @@ const Chat: React.FC = () => {
                 </Button>
               </form>
             </div>
-          </SidebarInset>
-        </div>
-      </SidebarProvider>
+          </div>
+        </SidebarProvider>
+      </div>
     </div>
   );
 };

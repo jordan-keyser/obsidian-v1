@@ -28,8 +28,8 @@ const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full glass py-4 px-6">
-      <div className="flex items-center w-full max-w-[1400px] mx-auto">
-        <div className="flex-none mr-auto pl-0">
+      <div className="flex items-center justify-between w-full max-w-[1400px] mx-auto">
+        <div className="flex-none pl-0 mr-0">
           <img 
             src="/lovable-uploads/a77d3106-824a-4647-8cc8-b594818529bc.png" 
             alt="Crowe Logo" 
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
           </Link>
         </nav>
         
-        <div className="flex-none flex items-center gap-3 ml-auto pl-0">
+        <div className="flex-none flex items-center gap-3 pl-0 mr-0">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 border border-input">
