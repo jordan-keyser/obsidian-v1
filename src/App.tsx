@@ -12,11 +12,28 @@ import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { useDocumentTitle } from "./hooks/useDocumentTitle";
 
-const queryClient = new QueryClient();
+/**
+ * Create React Query client with configuration
+ * This can be extended with additional settings for caching, retries,
+ * and other backend integration features
+ */
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      retry: 1,
+    },
+  },
+});
 
-// Layout component to handle document title
+/**
+ * AppLayout component - Handles routing and document title updates
+ * @returns {JSX.Element} AppLayout component with routes
+ */
 const AppLayout = () => {
+  // Set document title based on current route
   useDocumentTitle();
+  
   return (
     <Routes>
       <Route path="/" element={<Index />} />
@@ -29,6 +46,12 @@ const AppLayout = () => {
   );
 };
 
+/**
+ * App component - Root component that sets up providers
+ * This is where you would set up authentication, API contexts,
+ * and other global providers for backend integration
+ * @returns {JSX.Element} App component
+ */
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>

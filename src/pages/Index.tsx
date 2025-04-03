@@ -11,7 +11,7 @@ import ChatInput from '../components/ChatInput';
 const Index: React.FC = () => {
   return (
     <div className="main-layout">
-      {/* Header component */}
+      {/* Header component with navigation */}
       <Header />
       
       {/* Main content */}
@@ -26,10 +26,10 @@ const Index: React.FC = () => {
           </div>
         </section>
         
-        {/* Tile grid with filtering */}
+        {/* Tile grid with product offerings */}
         <HomeTileGrid />
         
-        {/* Chat input at the bottom */}
+        {/* Chat input for direct user assistance */}
         <section className="container mx-auto px-4 py-12 mb-16">
           <ChatInput />
         </section>

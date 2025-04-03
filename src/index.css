@@ -102,8 +102,9 @@
 }
 
 @layer components {
+  /* Updated glass class to be less transparent */
   .glass {
-    @apply bg-white/80 backdrop-blur-sm border border-white/50 shadow-md dark:bg-slate-900/80 dark:border-slate-700/50;
+    @apply bg-white/90 backdrop-blur-sm border border-white/50 shadow-md dark:bg-slate-900/90 dark:border-slate-700/50;
   }
   
   .tile {

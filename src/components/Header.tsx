@@ -15,13 +15,17 @@ import {
   DropdownMenuTrigger 
 } from './ui/dropdown-menu';
 
+/**
+ * Header component - Provides navigation and theme controls
+ * @returns {JSX.Element} Header component
+ */
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { theme } = useTheme();
   
-  // Add scroll detection
+  // Add scroll detection with higher opacity when scrolled
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -43,10 +47,10 @@ const Header: React.FC = () => {
     return location.pathname === path;
   };
 
-  // Generate header class with conditional opacity based on scroll position
+  // Generate header class with higher opacity when scrolled for better readability
   const headerClass = `sticky top-0 z-50 w-full py-4 px-6 transition-all duration-300 ${
     scrolled 
-      ? 'bg-white/98 dark:bg-slate-900/98 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800' 
+      ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 shadow-sm' 
       : 'glass'
   }`;
 
