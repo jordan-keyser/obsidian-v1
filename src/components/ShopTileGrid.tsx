@@ -1,11 +1,21 @@
 
 import React from 'react';
 import Tile from './Tile';
+import { 
+  Laptop, 
+  BarChart, 
+  LineChart, 
+  Users, 
+  CalendarClock, 
+  Smartphone, 
+  Code, 
+  Cloud 
+} from 'lucide-react';
 
 const tileData = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop",
+    icon: Laptop,
     title: "Digital Workspace",
     description: "Organize your projects with our intuitive workspace tools.",
     buttonText: "Explore",
@@ -14,7 +24,7 @@ const tileData = [
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?q=80&w=1200&auto=format&fit=crop",
+    icon: BarChart,
     title: "Daily Analytics",
     description: "Track your progress with detailed analytics and insights.",
     buttonText: "View Stats",
@@ -23,7 +33,7 @@ const tileData = [
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    icon: LineChart,
     title: "Data Visualization",
     description: "Transform complex data into clear, beautiful visualizations.",
     buttonText: "See Examples",
@@ -32,7 +42,7 @@ const tileData = [
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
+    icon: Users,
     title: "Team Collaboration",
     description: "Work together effectively with real-time collaboration tools.",
     buttonText: "Join Teams",
@@ -41,7 +51,7 @@ const tileData = [
   },
   {
     id: 5,
-    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+    icon: CalendarClock,
     title: "Premium Planning",
     description: "Advanced project planning with intuitive scheduling and milestones.",
     buttonText: "Unlock Now",
@@ -50,7 +60,7 @@ const tileData = [
   },
   {
     id: 6,
-    image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1200&auto=format&fit=crop",
+    icon: Smartphone,
     title: "Mobile Pro",
     description: "Enhanced mobile experience with exclusive features.",
     buttonText: "Upgrade",
@@ -59,7 +69,7 @@ const tileData = [
   },
   {
     id: 7,
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&auto=format&fit=crop",
+    icon: Code,
     title: "Developer Suite",
     description: "Advanced development tools to build enterprise-grade applications.",
     buttonText: "Get Access",
@@ -68,7 +78,7 @@ const tileData = [
   },
   {
     id: 8,
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1200&auto=format&fit=crop",
+    icon: Cloud,
     title: "Cloud Enterprise",
     description: "Enterprise cloud storage with advanced security features.",
     buttonText: "Subscribe",
@@ -84,7 +94,7 @@ const ShopTileGrid: React.FC = () => {
         {tileData.map(tile => (
           <Tile
             key={tile.id}
-            image={tile.image}
+            icon={tile.icon}
             title={tile.title}
             description={tile.description}
             buttonText={tile.buttonText}
