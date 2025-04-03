@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -7,6 +7,8 @@ import { Button } from './ui/button';
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
   placeholder?: string;
+  resultsCount?: number;
+  totalCount?: number;
 }
 
 /**
@@ -16,9 +18,24 @@ interface SearchBarProps {
  */
 const SearchBar: React.FC<SearchBarProps> = ({ 
   onSearch, 
-  placeholder = "Search..." 
+  placeholder = "Search...",
+  resultsCount,
+  totalCount
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedTerm, setDebouncedTerm] = useState('');
+
+  /**
+   * Debounce search term to prevent excessive filtering
+   */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedTerm(searchTerm);
+      onSearch(searchTerm);
+    }, 300); // 300ms debounce delay for smoother experience
+
+    return () => clearTimeout(timer);
+  }, [searchTerm, onSearch]);
 
   /**
    * Handle changes to the search input
@@ -27,7 +44,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-    onSearch(value);
   };
 
   /**
@@ -35,6 +51,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
    */
   const clearSearch = () => {
     setSearchTerm('');
+    setDebouncedTerm('');
     onSearch('');
   };
 
@@ -66,6 +83,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
           </div>
         )}
       </div>
+      
+      {/* Results counter - show when searching */}
+      {typeof resultsCount !== 'undefined' && typeof totalCount !== 'undefined' && (
+        <div className={`absolute -bottom-6 left-0 text-sm transition-opacity duration-300 ${debouncedTerm ? 'opacity-100' : 'opacity-0'}`}>
+          Showing {resultsCount} of {totalCount} tiles
+        </div>
+      )}
     </div>
   );
 };

@@ -1,9 +1,12 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import ShopTileGrid from '../components/ShopTileGrid';
+import SearchBar from '../components/SearchBar';
 
 const Gallery: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
     <div className="main-layout">
       <Header />
@@ -15,10 +18,18 @@ const Gallery: React.FC = () => {
             <p className="text-xl max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
               Explore premium tools and solutions to enhance your business productivity.
             </p>
+            
+            {/* Add SearchBar to Gallery page */}
+            <div className="mt-8">
+              <SearchBar 
+                onSearch={setSearchTerm} 
+                placeholder="Search for premium tools..." 
+              />
+            </div>
           </div>
         </section>
         
-        <ShopTileGrid />
+        <ShopTileGrid searchTerm={searchTerm} />
       </main>
     </div>
   );
