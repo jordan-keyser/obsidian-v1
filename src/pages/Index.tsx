@@ -10,18 +10,26 @@ import ChatInput from '../components/ChatInput';
  */
 const Index: React.FC = () => {
   /**
-   * Add scroll blur effect to the page
+   * Add scroll effects to the page
    */
   useEffect(() => {
-    // Handle scroll event to create a dynamic blur effect
+    // Handle scroll event to create dynamic effects
     const handleScroll = () => {
       const scrollPos = window.scrollY;
       const header = document.querySelector('header');
       const mainContent = document.querySelector('main');
       
       if (header && mainContent) {
-        // Add blur to main content as you scroll (max 5px blur)
-        const blurAmount = Math.min(scrollPos / 100, 5);
+        // Add blur effect below header when scrolling
+        const blurAmount = Math.min(scrollPos / 100, 8);
+        const fadeOpacity = Math.min(scrollPos / 200, 0.15);
+        
+        // Apply blur and fade gradient below header
+        header.style.boxShadow = scrollPos > 10 
+          ? `0 10px 15px -3px rgba(0, 0, 0, ${fadeOpacity}), 0 4px 6px -4px rgba(0, 0, 0, ${fadeOpacity})`
+          : 'none';
+        
+        // Add blur to main content as you scroll
         mainContent.style.backdropFilter = `blur(${blurAmount}px)`;
       }
     };
