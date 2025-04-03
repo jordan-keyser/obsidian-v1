@@ -56,7 +56,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   return (
-    <div className="relative flex w-full max-w-md mx-auto mb-6">
+    <div className="relative flex flex-col items-center w-full max-w-md mx-auto mb-8">
       <div className="relative w-full">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <Search className="h-4 w-4 text-gray-500" />
@@ -84,9 +84,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
         )}
       </div>
       
-      {/* Results counter - show when searching */}
+      {/* Results counter - show when searching with increased padding */}
       {typeof resultsCount !== 'undefined' && typeof totalCount !== 'undefined' && (
-        <div className={`absolute -bottom-6 left-0 text-sm transition-opacity duration-300 ${debouncedTerm ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`text-sm text-center mt-3 mb-4 transition-opacity duration-300 ${debouncedTerm ? 'opacity-100' : 'opacity-0'}`}>
           Showing {resultsCount} of {totalCount} tiles
         </div>
       )}

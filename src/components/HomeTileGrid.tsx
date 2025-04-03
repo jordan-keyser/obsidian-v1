@@ -160,17 +160,19 @@ const HomeTileGrid: React.FC = () => {
   const isTileVisible = (id: number) => visibleTileIds.includes(id);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Search filter */}
-      <SearchBar 
-        onSearch={handleSearch} 
-        placeholder="Filter tiles by name or description..." 
-        resultsCount={filteredTiles.length}
-        totalCount={tileData.length}
-      />
+    <div className="container mx-auto px-4 py-8 flex flex-col items-center">
+      {/* Search filter - centered */}
+      <div className="w-full flex justify-center mb-4">
+        <SearchBar 
+          onSearch={handleSearch} 
+          placeholder="Filter tiles by name or description..." 
+          resultsCount={filteredTiles.length}
+          totalCount={tileData.length}
+        />
+      </div>
       
       {/* Display filtered tiles */}
-      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px] transition-opacity duration-300 ${isFiltering ? 'opacity-50' : 'opacity-100'}`}>
+      <div className={`w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px] transition-opacity duration-300 ${isFiltering ? 'opacity-50' : 'opacity-100'}`}>
         {tileData.map(tile => (
           <div 
             key={tile.id} 

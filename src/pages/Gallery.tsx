@@ -19,8 +19,8 @@ const Gallery: React.FC = () => {
               Explore premium tools and solutions to enhance your business productivity.
             </p>
             
-            {/* Add SearchBar to Gallery page */}
-            <div className="mt-8">
+            {/* Add SearchBar to Gallery page - centered */}
+            <div className="mt-8 flex justify-center">
               <SearchBar 
                 onSearch={setSearchTerm} 
                 placeholder="Search for premium tools..." 
