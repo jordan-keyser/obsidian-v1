@@ -60,7 +60,7 @@ const Chat: React.FC = () => {
       
       <SidebarProvider>
         <div className="flex h-[calc(100vh-72px)] w-full">
-          <Sidebar className="h-[calc(100vh-72px)] flex-shrink-0">
+          <Sidebar className="h-[calc(100vh-72px)] flex-shrink-0 flex flex-col justify-end">
             <SidebarHeader>
               <div className="flex items-center">
                 <h2 className="text-lg font-semibold">Chats</h2>
