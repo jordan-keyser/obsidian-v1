@@ -1,70 +1,70 @@
 
 import React, { useRef, useEffect } from 'react';
-import { ScrollArea } from '../ui/scroll-area';
-import { Cpu } from 'lucide-react';
 
+/**
+ * Chat message structure
+ */
 export interface ChatMessage {
-  role: string;
+  role: 'user' | 'assistant';
   content: string;
 }
 
+/**
+ * Props for the ChatMessageList component
+ */
 interface ChatMessageListProps {
   chatHistory: ChatMessage[];
 }
 
-const EmptyState = () => (
-  <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
-    <Cpu className="h-12 w-12 mb-4" />
-    <h3 className="text-lg font-medium">Start a conversation</h3>
-    <p className="max-w-md mt-2">
-      Select a persona above and start typing to interact with the AI assistant.
-    </p>
-  </div>
-);
-
-const MessageBubble: React.FC<{ message: ChatMessage }> = ({ message }) => {
-  const isUser = message.role === 'user';
-  
-  return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
-      <div className={`max-w-3xl rounded-lg p-4 ${
-        isUser 
-          ? 'bg-crowe-gold/20 text-foreground ml-12' 
-          : 'bg-muted text-foreground mr-12'
-      }`}>
-        {message.content}
-      </div>
-    </div>
-  );
-};
-
+/**
+ * ChatMessageList component - Displays a list of chat messages with auto-scrolling
+ * @param {ChatMessageListProps} props - Component properties
+ * @returns {JSX.Element} ChatMessageList component
+ */
 const ChatMessageList: React.FC<ChatMessageListProps> = ({ chatHistory }) => {
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-  
-  // Auto-scroll to bottom when new messages arrive
+  // Reference to the message container for auto-scrolling
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * Scroll to the bottom of the chat when new messages arrive
+   */
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
-      if (scrollContainer) {
-        scrollContainer.scrollTop = scrollContainer.scrollHeight;
-      }
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [chatHistory]);
 
   return (
-    <ScrollArea className="flex-grow overflow-y-auto p-6" ref={scrollAreaRef}>
+    <div className="flex-1 overflow-y-auto p-4">
       {chatHistory.length === 0 ? (
-        <EmptyState />
+        // Empty state when no messages exist
+        <div className="flex h-full items-center justify-center text-gray-500">
+          <p>Select a persona and start chatting</p>
+        </div>
       ) : (
-        <div className="space-y-6">
+        // Message list when messages exist
+        <div className="space-y-4">
           {chatHistory.map((message, index) => (
-            <MessageBubble key={index} message={message} />
+            <div 
+              key={index}
+              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div 
+                className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                  message.role === 'user' 
+                    ? 'bg-primary text-primary-foreground' 
+                    : 'bg-muted'
+                }`}
+              >
+                {message.content}
+              </div>
+            </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
       )}
-    </ScrollArea>
+    </div>
   );
 };
 
 export default ChatMessageList;
-export type { ChatMessage };

@@ -4,14 +4,27 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Send } from 'lucide-react';
 
+/**
+ * Props for the ChatInputForm component
+ */
 interface ChatInputFormProps {
   onSendMessage: (message: string) => void;
   isDisabled: boolean;
 }
 
+/**
+ * ChatInputForm component - Provides the user input area for the chat interface
+ * @param {ChatInputFormProps} props - Component properties
+ * @returns {JSX.Element} ChatInputForm component
+ */
 const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled }) => {
+  // State for the current message being typed
   const [message, setMessage] = useState('');
 
+  /**
+   * Handle form submission
+   * @param {FormEvent} e - Form event
+   */
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
@@ -20,6 +33,10 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
     setMessage('');
   };
 
+  /**
+   * Handle key press events (specifically Enter to submit)
+   * @param {KeyboardEvent<HTMLInputElement>} e - Keyboard event
+   */
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -32,6 +49,7 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
   return (
     <div className="border-t p-4 flex-shrink-0 bg-background">
       <form onSubmit={handleSubmit} className="flex gap-2">
+        {/* Message input field */}
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -41,6 +59,8 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
           disabled={isDisabled}
           className="flex-grow"
         />
+        
+        {/* Send button */}
         <Button 
           type="submit" 
           disabled={isDisabled || !message.trim()}
