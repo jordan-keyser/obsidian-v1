@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, FormEvent, KeyboardEvent } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Send } from 'lucide-react';
@@ -12,12 +12,21 @@ interface ChatInputFormProps {
 const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled }) => {
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
     
     onSendMessage(message);
     setMessage('');
+  };
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (message.trim() && !isDisabled) {
+        handleSubmit(e);
+      }
+    }
   };
 
   return (
@@ -26,10 +35,17 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyPress}
           placeholder="Type your message here..."
+          aria-label="Chat message"
+          disabled={isDisabled}
           className="flex-grow"
         />
-        <Button type="submit" disabled={isDisabled || !message.trim()}>
+        <Button 
+          type="submit" 
+          disabled={isDisabled || !message.trim()}
+          aria-label="Send message"
+        >
           <Send className="h-4 w-4 mr-2" />
           Send
         </Button>
