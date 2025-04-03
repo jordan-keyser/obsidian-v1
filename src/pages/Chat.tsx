@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import { 
@@ -59,7 +60,7 @@ const Chat: React.FC = () => {
       
       <SidebarProvider>
         <div className="flex h-[calc(100vh-72px)] w-full">
-          <Sidebar>
+          <Sidebar className="h-[calc(100vh-72px)] flex-shrink-0">
             <SidebarHeader>
               <div className="flex items-center">
                 <h2 className="text-lg font-semibold">Chats</h2>
@@ -69,46 +70,48 @@ const Chat: React.FC = () => {
               </div>
             </SidebarHeader>
             
-            <SidebarContent>
-              <SidebarGroup>
-                <SidebarGroupLabel>Recent</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Market Analysis">
-                        <BookOpenText className="h-4 w-4" />
-                        <span>Market Analysis</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Project Planning">
-                        <BookOpenText className="h-4 w-4" />
-                        <span>Project Planning</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
-              
-              <SidebarGroup>
-                <SidebarGroupLabel>Saved</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Tax Guidance">
-                        <FolderOpen className="h-4 w-4" />
-                        <span>Tax Guidance</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Audit Procedure">
-                        <FolderOpen className="h-4 w-4" />
-                        <span>Audit Procedure</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
+            <SidebarContent className="h-full overflow-hidden">
+              <ScrollArea className="h-full">
+                <SidebarGroup>
+                  <SidebarGroupLabel>Recent</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Market Analysis">
+                          <BookOpenText className="h-4 w-4" />
+                          <span>Market Analysis</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Project Planning">
+                          <BookOpenText className="h-4 w-4" />
+                          <span>Project Planning</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+                
+                <SidebarGroup>
+                  <SidebarGroupLabel>Saved</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Tax Guidance">
+                          <FolderOpen className="h-4 w-4" />
+                          <span>Tax Guidance</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Audit Procedure">
+                          <FolderOpen className="h-4 w-4" />
+                          <span>Audit Procedure</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </ScrollArea>
             </SidebarContent>
             
             <SidebarFooter>
@@ -123,7 +126,7 @@ const Chat: React.FC = () => {
             </SidebarFooter>
           </Sidebar>
           
-          <SidebarInset className="p-0 flex flex-col">
+          <SidebarInset className="p-0 flex flex-col overflow-hidden">
             <div className="py-4 px-6 border-b flex-shrink-0">
               <h2 className="text-lg font-medium mb-3">Select a Persona</h2>
               <div className="flex flex-wrap gap-3 justify-between">
@@ -148,7 +151,7 @@ const Chat: React.FC = () => {
               </div>
             </div>
             
-            <ScrollArea className="flex-grow p-6">
+            <ScrollArea className="flex-grow overflow-y-auto p-6">
               {chatHistory.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
                   <Cpu className="h-12 w-12 mb-4" />
