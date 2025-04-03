@@ -32,17 +32,17 @@ const tileData: TileItem[] = [
   {
     id: 1,
     icon: Laptop,
-    title: "Digital Workspace",
-    description: "Organize your projects with our intuitive workspace tools.",
-    buttonText: "Explore",
+    title: "Accountrix",
+    description: "Autonomize your workflow.",
+    buttonText: "Launch",
     aspectRatio: "square"
   },
   {
     id: 2,
     icon: BarChart,
-    title: "Daily Analytics",
-    description: "Track your progress with detailed analytics and insights.",
-    buttonText: "View Stats",
+    title: "Lease Agent",
+    description: "Extract value lease data with a single click.",
+    buttonText: "Launch",
     aspectRatio: "square"
   },
   {
