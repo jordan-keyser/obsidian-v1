@@ -38,7 +38,7 @@ const ChatInput: React.FC = () => {
     <Card className="w-full max-w-4xl mx-auto shadow-lg">
       <CardContent className="pt-6">
         <div className="mb-4">
-          <h3 className="text-lg font-medium mb-2">Ask Crowe AGI</h3>
+          <h3 className="text-lg font-medium mb-2">Ask Crowe Obsidian</h3>
           <p className="text-sm text-muted-foreground">
             Use this interface to interact with our AI assistant. Type your question below.
           </p>
@@ -48,7 +48,7 @@ const ChatInput: React.FC = () => {
           <Input
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="How can Crowe AGI help your business today?"
+            placeholder="How can Crowe Obsidian help your business today?"
             className="flex-1"
           />
           <Button 
