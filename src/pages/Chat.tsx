@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import { 
@@ -20,7 +19,6 @@ import { Button } from '../components/ui/button';
 import { Send, Plus, FolderOpen, BookOpenText, Settings, Cpu, BrainCircuit, Palette, UserRound, Briefcase, Calculator, FileText } from 'lucide-react';
 import { Separator } from '../components/ui/separator';
 import { ScrollArea } from '../components/ui/scroll-area';
-import { Textarea } from '../components/ui/textarea';
 
 const personaData = [
   { id: 1, title: 'Analyst', icon: <BrainCircuit className="h-6 w-6" />, description: 'For data analysis and insights' },
@@ -56,12 +54,12 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full overflow-hidden">
+    <div className="main-layout">
       <Header />
       
-      <div className="flex flex-1 h-[calc(100vh-72px)] overflow-hidden relative">
-        <SidebarProvider>
-          <Sidebar className="mt-0 pt-0">
+      <SidebarProvider>
+        <div className="flex h-[calc(100vh-72px)] w-full">
+          <Sidebar>
             <SidebarHeader>
               <div className="flex items-center">
                 <h2 className="text-lg font-semibold">Chats</h2>
@@ -125,7 +123,7 @@ const Chat: React.FC = () => {
             </SidebarFooter>
           </Sidebar>
           
-          <div className="flex-1 flex flex-col overflow-hidden">
+          <SidebarInset className="p-0 flex flex-col">
             <div className="py-4 px-6 border-b flex-shrink-0">
               <h2 className="text-lg font-medium mb-3">Select a Persona</h2>
               <div className="flex flex-wrap gap-3 justify-between">
@@ -150,7 +148,7 @@ const Chat: React.FC = () => {
               </div>
             </div>
             
-            <ScrollArea className="flex-grow overflow-y-auto px-6 py-4">
+            <ScrollArea className="flex-grow p-6">
               {chatHistory.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
                   <Cpu className="h-12 w-12 mb-4" />
@@ -179,7 +177,7 @@ const Chat: React.FC = () => {
               )}
             </ScrollArea>
             
-            <div className="border-t p-4 bg-background">
+            <div className="border-t p-4 flex-shrink-0 bg-background">
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <Input
                   value={message}
@@ -193,9 +191,9 @@ const Chat: React.FC = () => {
                 </Button>
               </form>
             </div>
-          </div>
-        </SidebarProvider>
-      </div>
+          </SidebarInset>
+        </div>
+      </SidebarProvider>
     </div>
   );
 };
