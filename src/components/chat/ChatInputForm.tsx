@@ -77,18 +77,20 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
           multiple
         />
         
-        {/* File upload button */}
+        {/* File upload button with label */}
         <Button 
           type="button" 
           variant="outline"
           onClick={handleFileButtonClick}
           disabled={isDisabled}
           aria-label="Upload file"
+          className="flex flex-col items-center gap-1 px-2"
         >
           <FileUp className="h-4 w-4" />
+          <span className="text-xs">Files</span>
         </Button>
         
-        {/* Message input field */}
+        {/* Message input field - with increased height to match the send+beam buttons */}
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -96,7 +98,7 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
           placeholder="Type your message here..."
           aria-label="Chat message"
           disabled={isDisabled}
-          className="flex-grow"
+          className="flex-grow h-[84px]" /* Height to match send+beam buttons */
         />
         
         {/* Send button with Beam button below */}
