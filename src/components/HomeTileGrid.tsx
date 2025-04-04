@@ -6,7 +6,7 @@ import {
   Laptop, 
   BarChart, 
   LineChart, 
-  Users, 
+  MessageSquare, 
   CalendarClock, 
   Smartphone, 
   Code, 
@@ -55,10 +55,10 @@ const tileData: TileItem[] = [
   },
   {
     id: 4,
-    icon: Users,
-    title: "Team Collaboration",
+    icon: MessageSquare,
+    title: "Chat with your Data",
     description: "Work together effectively with real-time collaboration tools.",
-    buttonText: "Join Teams",
+    buttonText: "Launch",
     aspectRatio: "square"
   },
   {
