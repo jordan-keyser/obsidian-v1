@@ -1,6 +1,25 @@
 
-import React, { memo } from 'react';
-import { BrainCircuit, Palette, Cpu, UserRound, Briefcase, Calculator } from 'lucide-react';
+import React, { memo, useState } from 'react';
+import { 
+  BrainCircuit, Palette, Cpu, UserRound, Briefcase, Calculator,
+  MoreVertical, ChevronUp, ChevronDown 
+} from 'lucide-react';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator
+} from '../ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../ui/select';
+import { Switch } from '../ui/switch';
+import { Button } from '../ui/button';
 
 export interface Persona {
   id: number;
@@ -16,6 +35,13 @@ export const personaData: Persona[] = [
   { id: 4, title: 'Assistant', icon: <UserRound className="h-6 w-6" />, description: 'For general assistance' },
   { id: 5, title: 'Business', icon: <Briefcase className="h-6 w-6" />, description: 'For business strategy and advice' },
   { id: 6, title: 'Finance', icon: <Calculator className="h-6 w-6" />, description: 'For financial planning' },
+];
+
+// Available AI models
+const models = [
+  { id: 'gpt-4o-mini', name: 'GPT-4o Mini' },
+  { id: 'gpt-4o', name: 'GPT-4o' },
+  { id: 'gpt-4.5-preview', name: 'GPT-4.5 Preview' },
 ];
 
 interface PersonaItemProps {
@@ -49,22 +75,86 @@ PersonaItem.displayName = 'PersonaItem';
 interface PersonaSelectorProps {
   selectedPersona: number | null;
   setSelectedPersona: (id: number) => void;
+  isCollapsed: boolean;
+  onToggleCollapse: () => void;
+  showSystemMessages: boolean;
+  onToggleSystemMessages: (show: boolean) => void;
 }
 
-const PersonaSelector: React.FC<PersonaSelectorProps> = ({ selectedPersona, setSelectedPersona }) => {
+const PersonaSelector: React.FC<PersonaSelectorProps> = ({ 
+  selectedPersona, 
+  setSelectedPersona, 
+  isCollapsed, 
+  onToggleCollapse,
+  showSystemMessages,
+  onToggleSystemMessages
+}) => {
+  const [selectedModel, setSelectedModel] = useState('gpt-4o');
+
   return (
     <div className="py-4 px-6 border-b flex-shrink-0">
-      <h2 className="text-lg font-medium mb-3">Select a Persona</h2>
-      <div className="flex flex-wrap gap-3 justify-between">
-        {personaData.map((persona) => (
-          <PersonaItem
-            key={persona.id}
-            persona={persona}
-            isSelected={selectedPersona === persona.id}
-            onSelect={setSelectedPersona}
-          />
-        ))}
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-lg font-medium">Select a Persona</h2>
+        
+        <div className="flex items-center gap-2">
+          {/* Model selection dropdown in center */}
+          <div className="absolute left-1/2 transform -translate-x-1/2">
+            <Select value={selectedModel} onValueChange={setSelectedModel}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select model" />
+              </SelectTrigger>
+              <SelectContent>
+                {models.map(model => (
+                  <SelectItem key={model.id} value={model.id}>
+                    {model.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {/* Collapse/Expand button */}
+          <Button variant="ghost" size="icon" onClick={onToggleCollapse}>
+            {isCollapsed ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
+          </Button>
+          
+          {/* Three dots menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <MoreVertical className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem className="flex items-center justify-between">
+                System messages
+                <Switch 
+                  checked={showSystemMessages} 
+                  onCheckedChange={onToggleSystemMessages} 
+                  className="ml-2"
+                />
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Split right</DropdownMenuItem>
+              <DropdownMenuItem>Branch</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
+      
+      {/* Show personas only when not collapsed */}
+      {!isCollapsed && (
+        <div className="flex flex-wrap gap-3 justify-between">
+          {personaData.map((persona) => (
+            <PersonaItem
+              key={persona.id}
+              persona={persona}
+              isSelected={selectedPersona === persona.id}
+              onSelect={setSelectedPersona}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

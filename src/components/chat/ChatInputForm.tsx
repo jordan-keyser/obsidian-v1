@@ -1,6 +1,5 @@
 
 import React, { useState, FormEvent, KeyboardEvent, useRef } from 'react';
-import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Send, FileUp } from 'lucide-react';
 
@@ -22,6 +21,8 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
   const [message, setMessage] = useState('');
   // Reference for the file input element
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // Reference for the textarea element
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   /**
    * Handle form submission
@@ -33,14 +34,20 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
     
     onSendMessage(message);
     setMessage('');
+    
+    // Reset textarea height
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
   };
 
   /**
    * Handle key press events (specifically Enter to submit)
-   * @param {KeyboardEvent<HTMLInputElement>} e - Keyboard event
+   * @param {KeyboardEvent<HTMLTextAreaElement>} e - Keyboard event
    */
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+  const handleKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    // Allow Ctrl+Enter for new line
+    if (e.key === 'Enter' && !e.ctrlKey && !e.shiftKey) {
       e.preventDefault();
       if (message.trim() && !isDisabled) {
         handleSubmit(e);
@@ -65,6 +72,18 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
     e.target.value = '';
   };
 
+  /**
+   * Auto-resize textarea as content changes
+   */
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
+    
+    // Auto-resize the textarea
+    const textarea = e.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
   return (
     <div className="border-t p-4 flex-shrink-0 bg-background">
       <form onSubmit={handleSubmit} className="flex gap-2">
@@ -84,22 +103,26 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
           onClick={handleFileButtonClick}
           disabled={isDisabled}
           aria-label="Upload file"
-          className="flex-row items-center h-[84px]"
+          className="flex items-center h-[84px]"
         >
           <FileUp className="h-4 w-4 mr-2" />
           <span>Files</span>
         </Button>
         
-        {/* Message input field - with increased height to match the send+beam buttons */}
-        <Input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyPress}
-          placeholder="Type your message here..."
-          aria-label="Chat message"
-          disabled={isDisabled}
-          className="flex-grow h-[84px]" /* Height to match send+beam buttons */
-        />
+        {/* Message textarea - multiline input with auto-resize */}
+        <div className="flex-grow relative">
+          <textarea
+            ref={textareaRef}
+            value={message}
+            onChange={handleTextareaChange}
+            onKeyDown={handleKeyPress}
+            placeholder="Type your message here..."
+            aria-label="Chat message"
+            disabled={isDisabled}
+            className="w-full min-h-[84px] max-h-[200px] p-2 rounded-md border border-input focus:ring-2 focus:ring-ring focus:outline-none resize-none overflow-y-auto bg-background"
+            style={{ paddingTop: '0.5rem' }}
+          />
+        </div>
         
         {/* Send button with Beam button below */}
         <div className="flex flex-col gap-2">

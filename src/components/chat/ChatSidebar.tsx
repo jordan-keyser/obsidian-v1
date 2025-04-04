@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Sidebar,
   SidebarHeader,
@@ -11,12 +11,21 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
+  SidebarMenuAction,
 } from '../ui/sidebar';
-import { Plus, FolderOpen, BookOpenText, Settings } from 'lucide-react';
+import { Plus, BookOpenText, Settings, Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { ScrollArea } from '../ui/scroll-area';
 
 const ChatSidebar: React.FC = () => {
+  // Sample recent chats - in a real app, this would come from a hook or context
+  const [recentChats, setRecentChats] = useState<{ id: string; title: string }[]>([]);
+  
+  // Function to remove a chat
+  const removeChat = (id: string) => {
+    setRecentChats(prev => prev.filter(chat => chat.id !== id));
+  };
+
   return (
     <Sidebar className="h-[calc(100vh-72px)] mt-[72px] flex-shrink-0 flex flex-col justify-end">
       <SidebarHeader>
@@ -34,38 +43,22 @@ const ChatSidebar: React.FC = () => {
             <SidebarGroupLabel>Recent</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Market Analysis">
-                    <BookOpenText className="h-4 w-4" />
-                    <span>Market Analysis</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Project Planning">
-                    <BookOpenText className="h-4 w-4" />
-                    <span>Project Planning</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-          
-          <SidebarGroup>
-            <SidebarGroupLabel>Saved</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Tax Guidance">
-                    <FolderOpen className="h-4 w-4" />
-                    <span>Tax Guidance</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Audit Procedure">
-                    <FolderOpen className="h-4 w-4" />
-                    <span>Audit Procedure</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                {recentChats.length === 0 && (
+                  <div className="text-sm text-muted-foreground px-2 py-1">
+                    No recent chats
+                  </div>
+                )}
+                {recentChats.map((chat) => (
+                  <SidebarMenuItem key={chat.id}>
+                    <SidebarMenuButton tooltip={chat.title}>
+                      <BookOpenText className="h-4 w-4" />
+                      <span>{chat.title}</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuAction showOnHover onClick={() => removeChat(chat.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </SidebarMenuAction>
+                  </SidebarMenuItem>
+                ))}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
