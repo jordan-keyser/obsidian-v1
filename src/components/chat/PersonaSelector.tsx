@@ -2,7 +2,7 @@
 import React, { memo, useState } from 'react';
 import { 
   BrainCircuit, Palette, Cpu, UserRound, Briefcase, Calculator,
-  MoreVertical, ChevronUp, ChevronDown, Trash2
+  MoreVertical, ChevronUp, ChevronDown, Trash2, Split, GitBranch
 } from 'lucide-react';
 import { 
   DropdownMenu,
@@ -79,6 +79,8 @@ interface PersonaSelectorProps {
   onToggleCollapse: () => void;
   showSystemMessages: boolean;
   onToggleSystemMessages: (show: boolean) => void;
+  selectedModel: string;
+  setSelectedModel: (model: string) => void;
 }
 
 const PersonaSelector: React.FC<PersonaSelectorProps> = ({ 
@@ -87,17 +89,17 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
   isCollapsed, 
   onToggleCollapse,
   showSystemMessages,
-  onToggleSystemMessages
+  onToggleSystemMessages,
+  selectedModel,
+  setSelectedModel
 }) => {
-  const [selectedModel, setSelectedModel] = useState('gpt-4o');
-
   const handleClearSelection = () => {
     setSelectedPersona(null);
-    setSelectedModel('gpt-4o');
+    setSelectedModel('');
   };
 
   return (
-    <div className="py-4 px-6 border-b flex-shrink-0">
+    <div className={`py-4 px-6 border-b flex-shrink-0 ${isCollapsed ? 'pb-2' : ''}`}>
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-medium">Select a Persona</h2>
         
@@ -119,8 +121,11 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
           </div>
           
           {/* Collapse/Expand button with smoother animation */}
-          <Button variant="ghost" size="icon" onClick={onToggleCollapse} className="transition-transform duration-300 ease-in-out">
-            {isCollapsed ? <ChevronDown className="h-4 w-4 transition-transform duration-300" /> : <ChevronUp className="h-4 w-4 transition-transform duration-300" />}
+          <Button variant="ghost" size="icon" onClick={onToggleCollapse} className="transition-all duration-300 ease-in-out">
+            {isCollapsed ? 
+              <ChevronDown className="h-4 w-4 transition-transform duration-300 ease-in-out" /> : 
+              <ChevronUp className="h-4 w-4 transition-transform duration-300 ease-in-out" />
+            }
           </Button>
           
           {/* Three dots menu */}
@@ -144,8 +149,14 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
                 <Trash2 className="mr-2 h-4 w-4" />
                 <span>Clear selection</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>Split right</DropdownMenuItem>
-              <DropdownMenuItem>Branch</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Split className="mr-2 h-4 w-4" />
+                <span>Split right</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <GitBranch className="mr-2 h-4 w-4" />
+                <span>Branch</span>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -156,6 +167,9 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
         className={`transition-all duration-300 ease-in-out overflow-hidden ${
           isCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
         }`}
+        style={{
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        }}
       >
         <div className="flex flex-wrap gap-3 justify-between">
           {personaData.map((persona) => (

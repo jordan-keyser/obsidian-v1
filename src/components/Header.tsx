@@ -56,8 +56,8 @@ const Header: React.FC = () => {
 
   return (
     <header className={headerClass}>
-      <div className="flex justify-between items-center w-full">
-        <div className="flex-none pl-2">
+      <div className="flex justify-between items-center w-full relative">
+        <div className="flex-none pl-2 z-10">
           {theme === 'light' ? (
             <img 
               src="/lovable-uploads/e4a7a215-090b-491a-ad9b-29ba4aa18a9d.png" 
@@ -73,28 +73,28 @@ const Header: React.FC = () => {
           )}
         </div>
         
-        <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
+        <nav className="flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
           <Link 
             to="/" 
-            className={`text-xl font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-2xl font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Home
           </Link>
           <Link 
             to="/chat" 
-            className={`text-xl font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-2xl font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Chat
           </Link>
           <Link 
             to="/gallery" 
-            className={`text-xl font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-2xl font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Gallery
           </Link>
         </nav>
         
-        <div className="flex-none pr-2 flex items-center gap-3">
+        <div className="flex-none pr-2 flex items-center gap-3 z-10">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full h-10 w-10 border border-input">

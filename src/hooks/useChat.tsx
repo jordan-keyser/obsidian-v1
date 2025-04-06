@@ -13,6 +13,9 @@ export function useChat() {
   // State for selected AI persona
   const [selectedPersona, setSelectedPersona] = useState<number | null>(null);
 
+  // State for selected AI model
+  const [selectedModel, setSelectedModel] = useState<string>('gpt-4o');
+
   /**
    * Send a new message to the chat
    * @param {string} message - The message text to send
@@ -26,17 +29,19 @@ export function useChat() {
     setTimeout(() => {
       setChatHistory(prev => [...prev, { 
         role: 'assistant', 
-        content: `This is a simulated response to: "${message}". In a real implementation, this would come from an LLM API.` 
+        content: `This is a simulated response using ${selectedModel}: "${message}". In a real implementation, this would come from an LLM API.` 
       }]);
     }, 1000);
-  }, []);
+  }, [selectedModel]);
 
   // Return chat state and methods
   return {
     chatHistory,       // Array of chat messages
     selectedPersona,   // Currently selected AI persona
     setSelectedPersona, // Function to change the selected persona
+    selectedModel,     // Currently selected AI model
+    setSelectedModel,  // Function to change the selected model
     sendMessage,       // Function to send a new message
-    isReady: selectedPersona !== null // Whether the chat is ready (persona selected)
+    isReady: selectedModel !== '' // Whether the chat is ready (model selected)
   };
 }

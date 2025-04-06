@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import { SidebarProvider, SidebarInset } from '../components/ui/sidebar';
 import PersonaSelector from '../components/chat/PersonaSelector';
@@ -16,12 +16,15 @@ const Chat: React.FC = () => {
   // State for collapsing the persona selector
   const [isPersonaSelectorCollapsed, setIsPersonaSelectorCollapsed] = useState(false);
   const [showSystemMessages, setShowSystemMessages] = useState(true);
+  const personaSelectorRef = useRef<HTMLDivElement>(null);
   
   // Use the chat hook to manage chat state and functionality
   const { 
     chatHistory,       // Array of chat messages
     selectedPersona,   // Currently selected AI persona
     setSelectedPersona, // Function to change the selected persona
+    selectedModel,     // Currently selected model
+    setSelectedModel,  // Function to change the selected model
     sendMessage,       // Function to send a new message
     isReady            // Whether the chat is ready to receive messages
   } = useChat();
@@ -30,6 +33,20 @@ const Chat: React.FC = () => {
   const togglePersonaSelector = () => {
     setIsPersonaSelectorCollapsed(!isPersonaSelectorCollapsed);
   };
+
+  // Make persona selector sticky on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (personaSelectorRef.current) {
+        personaSelectorRef.current.style.position = 'sticky';
+        personaSelectorRef.current.style.top = '0';
+        personaSelectorRef.current.style.zIndex = '20';
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="flex flex-col h-screen">
@@ -47,7 +64,7 @@ const Chat: React.FC = () => {
             {/* Main chat area with fixed positioning for input */}
             <SidebarInset className="p-0 flex flex-col h-full">
               {/* Persona selector at the top - always visible and sticky */}
-              <div className="sticky top-0 z-20 bg-background">
+              <div ref={personaSelectorRef} className="sticky top-0 z-20 bg-background">
                 <PersonaSelector
                   selectedPersona={selectedPersona}
                   setSelectedPersona={setSelectedPersona}
@@ -55,6 +72,8 @@ const Chat: React.FC = () => {
                   onToggleCollapse={togglePersonaSelector}
                   showSystemMessages={showSystemMessages}
                   onToggleSystemMessages={setShowSystemMessages}
+                  selectedModel={selectedModel}
+                  setSelectedModel={setSelectedModel}
                 />
               </div>
               
@@ -71,7 +90,7 @@ const Chat: React.FC = () => {
               <div className="sticky bottom-0 left-0 right-0 w-full bg-background pb-4">
                 <ChatInputForm
                   onSendMessage={sendMessage}
-                  isDisabled={!isReady}
+                  isDisabled={!selectedModel} // Changed to only require a model
                 />
               </div>
             </SidebarInset>
