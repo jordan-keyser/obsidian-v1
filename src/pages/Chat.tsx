@@ -7,6 +7,7 @@ import ChatMessageList from '../components/chat/ChatMessageList';
 import ChatInputForm from '../components/chat/ChatInputForm';
 import ChatSidebar from '../components/chat/ChatSidebar';
 import { useChat } from '../hooks/useChat';
+import { useIsMobile } from '../hooks/use-mobile';
 
 /**
  * Chat page component - Main interface for the chat functionality
@@ -16,6 +17,7 @@ const Chat: React.FC = () => {
   // State for collapsing the persona selector
   const [isPersonaSelectorCollapsed, setIsPersonaSelectorCollapsed] = useState(false);
   const [showSystemMessages, setShowSystemMessages] = useState(true);
+  const isMobile = useIsMobile();
   
   // Use the chat hook to manage chat state and functionality
   const { 
@@ -48,35 +50,44 @@ const Chat: React.FC = () => {
             
             {/* Main chat area with fixed positioning for input */}
             <SidebarInset className="p-0 flex flex-col h-full relative">
-              {/* Persona selector at the top - fixed in position */}
-              <div className="sticky top-0 z-20 bg-background w-full">
-                <PersonaSelector
-                  selectedPersona={selectedPersona}
-                  setSelectedPersona={setSelectedPersona}
-                  isCollapsed={isPersonaSelectorCollapsed}
-                  onToggleCollapse={togglePersonaSelector}
-                  showSystemMessages={showSystemMessages}
-                  onToggleSystemMessages={setShowSystemMessages}
-                  selectedModel={selectedModel}
-                  setSelectedModel={setSelectedModel}
-                />
-              </div>
-              
-              {/* Message list in the middle - scrollable area with proper padding for input */}
-              <div className="flex-1 overflow-y-auto pb-[140px]">
-                <ChatMessageList 
-                  chatHistory={chatHistory.filter(msg => 
-                    showSystemMessages || msg.role !== 'system'
-                  )} 
-                />
-              </div>
-              
-              {/* Input form sticky at the bottom with padding */}
-              <div className="sticky bottom-0 left-0 right-0 w-full bg-background pb-4">
-                <ChatInputForm
-                  onSendMessage={sendMessage}
-                  isDisabled={!selectedModel} // Only require a model to be selected
-                />
+              {/* Fixed layout with absolute positioning for persona selector and message list */}
+              <div className="h-full flex flex-col relative">
+                {/* Persona selector at the top - absolutely positioned */}
+                <div className="absolute top-0 left-0 right-0 z-20 bg-background w-full border-b">
+                  <PersonaSelector
+                    selectedPersona={selectedPersona}
+                    setSelectedPersona={setSelectedPersona}
+                    isCollapsed={isPersonaSelectorCollapsed}
+                    onToggleCollapse={togglePersonaSelector}
+                    showSystemMessages={showSystemMessages}
+                    onToggleSystemMessages={setShowSystemMessages}
+                    selectedModel={selectedModel}
+                    setSelectedModel={setSelectedModel}
+                  />
+                </div>
+                
+                {/* Message list below the fixed persona selector with top padding to avoid overlap */}
+                <div 
+                  className="absolute top-0 bottom-[140px] left-0 right-0 overflow-y-auto"
+                  style={{ 
+                    paddingTop: isPersonaSelectorCollapsed ? '78px' : '160px',
+                    transition: 'padding-top 0.3s ease-in-out'
+                  }}
+                >
+                  <ChatMessageList 
+                    chatHistory={chatHistory.filter(msg => 
+                      showSystemMessages || msg.role !== 'system'
+                    )} 
+                  />
+                </div>
+                
+                {/* Input form absolute at the bottom */}
+                <div className="absolute bottom-0 left-0 right-0 bg-background pb-4">
+                  <ChatInputForm
+                    onSendMessage={sendMessage}
+                    isDisabled={!selectedModel} // Only require a model to be selected
+                  />
+                </div>
               </div>
             </SidebarInset>
           </div>
