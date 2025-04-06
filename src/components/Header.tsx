@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, User, Settings, MessageSquare } from 'lucide-react';
+import { Menu, X, User, Settings } from 'lucide-react';
 import { Button } from './ui/button';
 import MobileMenu from './MobileMenu';
 import ThemeToggle from './ThemeToggle';
@@ -73,24 +73,30 @@ const Header: React.FC = () => {
           )}
         </div>
         
-        <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-8">
+        <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
           <Link 
             to="/" 
-            className={`text-lg font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Home
           </Link>
           <Link 
             to="/chat" 
-            className={`text-lg font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Chat
           </Link>
           <Link 
             to="/gallery" 
-            className={`text-lg font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Gallery
+          </Link>
+          <Link 
+            to="/feedback" 
+            className={`font-medium transition-colors ${isActive('/feedback') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+          >
+            Feedback
           </Link>
         </nav>
         
@@ -111,10 +117,6 @@ const Header: React.FC = () => {
               <DropdownMenuItem>
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem as={Link} to="/feedback">
-                <MessageSquare className="mr-2 h-4 w-4" />
-                <span>Feedback</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <div className="px-2 py-1.5 flex items-center">
