@@ -16,7 +16,6 @@ const Chat: React.FC = () => {
   // State for collapsing the persona selector
   const [isPersonaSelectorCollapsed, setIsPersonaSelectorCollapsed] = useState(false);
   const [showSystemMessages, setShowSystemMessages] = useState(true);
-  const personaSelectorRef = useRef<HTMLDivElement>(null);
   
   // Use the chat hook to manage chat state and functionality
   const { 
@@ -34,20 +33,6 @@ const Chat: React.FC = () => {
     setIsPersonaSelectorCollapsed(!isPersonaSelectorCollapsed);
   };
 
-  // Make persona selector sticky on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (personaSelectorRef.current) {
-        personaSelectorRef.current.style.position = 'sticky';
-        personaSelectorRef.current.style.top = '0';
-        personaSelectorRef.current.style.zIndex = '20';
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="flex flex-col h-screen">
       {/* Header component */}
@@ -62,9 +47,9 @@ const Chat: React.FC = () => {
             <ChatSidebar />
             
             {/* Main chat area with fixed positioning for input */}
-            <SidebarInset className="p-0 flex flex-col h-full">
-              {/* Persona selector at the top - always visible and sticky */}
-              <div ref={personaSelectorRef} className="sticky top-0 z-20 bg-background">
+            <SidebarInset className="p-0 flex flex-col h-full relative">
+              {/* Persona selector at the top - fixed in position */}
+              <div className="sticky top-0 z-20 bg-background w-full">
                 <PersonaSelector
                   selectedPersona={selectedPersona}
                   setSelectedPersona={setSelectedPersona}
@@ -90,7 +75,7 @@ const Chat: React.FC = () => {
               <div className="sticky bottom-0 left-0 right-0 w-full bg-background pb-4">
                 <ChatInputForm
                   onSendMessage={sendMessage}
-                  isDisabled={!selectedModel} // Changed to only require a model
+                  isDisabled={!selectedModel} // Only require a model to be selected
                 />
               </div>
             </SidebarInset>
