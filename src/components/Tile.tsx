@@ -56,7 +56,7 @@ const Tile: React.FC<TileProps> = ({
       
       {/* Tile content */}
       <div className={`relative z-10 h-full flex flex-col p-6 ${isLightMode && !image ? 'text-gray-800' : 'text-white'}`}>
-        {/* Icon section - Increased icon size */}
+        {/* Icon section */}
         <div className="flex justify-center mb-4 mt-2">
           {Icon && (
             <div className={`flex items-center justify-center rounded-full p-3 ${
@@ -65,7 +65,7 @@ const Tile: React.FC<TileProps> = ({
                 : 'bg-black/30 border-2 border-crowe-gold'
             }`}>
               <Icon 
-                size={48} 
+                size={36} 
                 className={isLightMode && !image ? "text-crowe-dark" : "text-crowe-gold"} 
               />
             </div>
