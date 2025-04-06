@@ -76,27 +76,21 @@ const Header: React.FC = () => {
         <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
           <Link 
             to="/" 
-            className={`font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-lg font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Home
           </Link>
           <Link 
             to="/chat" 
-            className={`font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-lg font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Chat
           </Link>
           <Link 
             to="/gallery" 
-            className={`font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-lg font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Gallery
-          </Link>
-          <Link 
-            to="/feedback" 
-            className={`font-medium transition-colors ${isActive('/feedback') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
-          >
-            Feedback
           </Link>
         </nav>
         
@@ -118,6 +112,11 @@ const Header: React.FC = () => {
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
               </DropdownMenuItem>
+              <Link to="/feedback" className="w-full">
+                <DropdownMenuItem>
+                  <span>Feedback</span>
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuSeparator />
               <div className="px-2 py-1.5 flex items-center">
                 <span className="text-sm">Theme</span>

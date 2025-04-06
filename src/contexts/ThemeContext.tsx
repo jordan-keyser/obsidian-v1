@@ -24,7 +24,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
  * @returns {JSX.Element} ThemeProvider component
  */
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Initialize theme state from localStorage or system preference
+  // Initialize theme state from localStorage or default to light mode
   const [theme, setTheme] = useState<Theme>(() => {
     // Try to get theme from localStorage first
     const savedTheme = localStorage.getItem('theme');
@@ -32,8 +32,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return savedTheme;
     }
     
-    // Fall back to system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    // Default to light mode
+    return 'light';
   });
 
   // Update document classes and localStorage when theme changes
