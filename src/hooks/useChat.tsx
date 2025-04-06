@@ -1,6 +1,11 @@
 
 import { useState, useCallback } from 'react';
-import { ChatMessage } from '@/components/chat/ChatMessageList';
+
+// Updated to match the interface in ChatMessageList
+export interface ChatMessage {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
 
 /**
  * Custom hook for managing chat functionality

@@ -73,22 +73,22 @@ const Header: React.FC = () => {
           )}
         </div>
         
-        <nav className="flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
+        <nav className="flex absolute left-1/2 transform -translate-x-1/2 space-x-4 md:space-x-6">
           <Link 
             to="/" 
-            className={`text-2xl font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-lg sm:text-xl md:text-2xl font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Home
           </Link>
           <Link 
             to="/chat" 
-            className={`text-2xl font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-lg sm:text-xl md:text-2xl font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Chat
           </Link>
           <Link 
             to="/gallery" 
-            className={`text-2xl font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-lg sm:text-xl md:text-2xl font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Gallery
           </Link>

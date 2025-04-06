@@ -5,7 +5,7 @@ import React, { useRef, useEffect } from 'react';
  * Chat message structure
  */
 export interface ChatMessage {
-  role: 'user' | 'assistant';
+  role: 'user' | 'assistant' | 'system';
   content: string;
 }
 
@@ -53,6 +53,8 @@ const ChatMessageList: React.FC<ChatMessageListProps> = ({ chatHistory }) => {
                 className={`max-w-[80%] rounded-lg px-4 py-2 ${
                   message.role === 'user' 
                     ? 'bg-primary text-primary-foreground' 
+                    : message.role === 'system'
+                    ? 'bg-muted/50 italic'
                     : 'bg-muted'
                 }`}
               >

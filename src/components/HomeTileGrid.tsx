@@ -126,7 +126,7 @@ const HomeTileGrid: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col items-center">
+    <div className="container mx-auto px-4 sm:px-6 md:px-8 py-8 flex flex-col items-center">
       {/* Search filter - centered */}
       <div className="w-full flex justify-center mb-4">
         <SearchBar 
@@ -137,8 +137,8 @@ const HomeTileGrid: React.FC = () => {
         />
       </div>
       
-      {/* Display filtered tiles */}
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px]">
+      {/* Display filtered tiles with responsive grid and margins */}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 min-h-[400px]">
         {filteredTiles.map(tile => (
           <div key={tile.id}>
             <Tile

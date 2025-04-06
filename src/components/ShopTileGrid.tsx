@@ -150,9 +150,9 @@ const ShopTileGrid: React.FC<ShopTileGridProps> = ({ searchTerm = '' }) => {
   const isTileVisible = (id: number) => visibleTileIds.includes(id);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Display filtered tiles */}
-      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px] transition-opacity duration-300 ${isFiltering ? 'opacity-50' : 'opacity-100'}`}>
+    <div className="container mx-auto px-4 sm:px-6 md:px-8 py-8">
+      {/* Display filtered tiles with responsive grid */}
+      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 min-h-[400px] transition-opacity duration-300 ${isFiltering ? 'opacity-50' : 'opacity-100'}`}>
         {tileData.map(tile => (
           <div 
             key={tile.id} 
