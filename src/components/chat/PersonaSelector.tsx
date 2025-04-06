@@ -2,7 +2,7 @@
 import React, { memo, useState } from 'react';
 import { 
   BrainCircuit, Palette, Cpu, UserRound, Briefcase, Calculator,
-  MoreVertical, ChevronUp, ChevronDown 
+  MoreVertical, ChevronUp, ChevronDown, Trash2
 } from 'lucide-react';
 import { 
   DropdownMenu,
@@ -74,7 +74,7 @@ PersonaItem.displayName = 'PersonaItem';
 
 interface PersonaSelectorProps {
   selectedPersona: number | null;
-  setSelectedPersona: (id: number) => void;
+  setSelectedPersona: (id: number | null) => void;
   isCollapsed: boolean;
   onToggleCollapse: () => void;
   showSystemMessages: boolean;
@@ -90,6 +90,11 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
   onToggleSystemMessages
 }) => {
   const [selectedModel, setSelectedModel] = useState('gpt-4o');
+
+  const handleClearSelection = () => {
+    setSelectedPersona(null);
+    setSelectedModel('gpt-4o');
+  };
 
   return (
     <div className="py-4 px-6 border-b flex-shrink-0">
@@ -113,9 +118,9 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
             </Select>
           </div>
           
-          {/* Collapse/Expand button */}
-          <Button variant="ghost" size="icon" onClick={onToggleCollapse}>
-            {isCollapsed ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
+          {/* Collapse/Expand button with smoother animation */}
+          <Button variant="ghost" size="icon" onClick={onToggleCollapse} className="transition-transform duration-300 ease-in-out">
+            {isCollapsed ? <ChevronDown className="h-4 w-4 transition-transform duration-300" /> : <ChevronUp className="h-4 w-4 transition-transform duration-300" />}
           </Button>
           
           {/* Three dots menu */}
@@ -135,6 +140,10 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
                 />
               </DropdownMenuItem>
               <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleClearSelection}>
+                <Trash2 className="mr-2 h-4 w-4" />
+                <span>Clear selection</span>
+              </DropdownMenuItem>
               <DropdownMenuItem>Split right</DropdownMenuItem>
               <DropdownMenuItem>Branch</DropdownMenuItem>
             </DropdownMenuContent>
@@ -142,8 +151,12 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
         </div>
       </div>
       
-      {/* Show personas only when not collapsed */}
-      {!isCollapsed && (
+      {/* Show personas with smooth animation */}
+      <div 
+        className={`transition-all duration-300 ease-in-out overflow-hidden ${
+          isCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
+        }`}
+      >
         <div className="flex flex-wrap gap-3 justify-between">
           {personaData.map((persona) => (
             <PersonaItem
@@ -154,7 +167,7 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
             />
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };

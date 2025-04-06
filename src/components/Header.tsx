@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, User, Settings } from 'lucide-react';
+import { Menu, X, User, Settings, MessageSquare } from 'lucide-react';
 import { Button } from './ui/button';
 import MobileMenu from './MobileMenu';
 import ThemeToggle from './ThemeToggle';
@@ -76,19 +76,19 @@ const Header: React.FC = () => {
         <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
           <Link 
             to="/" 
-            className={`text-lg font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-xl font-medium transition-colors ${isActive('/') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Home
           </Link>
           <Link 
             to="/chat" 
-            className={`text-lg font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-xl font-medium transition-colors ${isActive('/chat') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Chat
           </Link>
           <Link 
             to="/gallery" 
-            className={`text-lg font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
+            className={`text-xl font-medium transition-colors ${isActive('/gallery') ? 'text-crowe-gold' : 'hover:text-crowe-gold'}`}
           >
             Gallery
           </Link>
@@ -114,6 +114,7 @@ const Header: React.FC = () => {
               </DropdownMenuItem>
               <Link to="/feedback" className="w-full">
                 <DropdownMenuItem>
+                  <MessageSquare className="mr-2 h-4 w-4" />
                   <span>Feedback</span>
                 </DropdownMenuItem>
               </Link>

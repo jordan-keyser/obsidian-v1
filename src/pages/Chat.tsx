@@ -47,7 +47,7 @@ const Chat: React.FC = () => {
             {/* Main chat area with fixed positioning for input */}
             <SidebarInset className="p-0 flex flex-col h-full">
               {/* Persona selector at the top - always visible and sticky */}
-              <div className="sticky top-0 z-10 bg-background">
+              <div className="sticky top-0 z-20 bg-background">
                 <PersonaSelector
                   selectedPersona={selectedPersona}
                   setSelectedPersona={setSelectedPersona}
