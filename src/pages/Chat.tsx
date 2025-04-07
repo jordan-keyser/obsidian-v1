@@ -49,7 +49,7 @@ const Chat: React.FC = () => {
             {/* Main chat area with fixed positioning for elements */}
             <SidebarInset className="p-0 flex flex-col h-full relative">
               {/* Fixed persona selector at the top */}
-              <div className="sticky top-0 z-20 bg-background w-full">
+              <div className="sticky top-0 z-20 bg-background w-full border-b">
                 <PersonaSelector
                   selectedPersona={selectedPersona}
                   setSelectedPersona={setSelectedPersona}
@@ -62,7 +62,7 @@ const Chat: React.FC = () => {
                 />
               </div>
               
-              {/* Scrollable chat message area */}
+              {/* Chat message area - scrollable with enough padding to avoid persona selector overlap */}
               <div className="flex-1 overflow-hidden">
                 <ChatMessageList 
                   chatHistory={chatHistory.filter(msg => 
