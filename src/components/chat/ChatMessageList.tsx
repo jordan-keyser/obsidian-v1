@@ -35,7 +35,7 @@ const ChatMessageList: React.FC<ChatMessageListProps> = ({ chatHistory }) => {
   }, [chatHistory]);
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 pt-16">
+    <div className="flex-1 overflow-y-auto p-4 pt-24">
       {chatHistory.length === 0 ? (
         // Empty state when no messages exist
         <div className="flex h-full items-center justify-center text-gray-500">
