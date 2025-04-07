@@ -1,5 +1,5 @@
-
 import React, { useRef, useEffect } from 'react';
+import { Box, Typography } from '@mui/joy';
 
 /**
  * Chat message structure
@@ -35,37 +35,62 @@ const ChatMessageList: React.FC<ChatMessageListProps> = ({ chatHistory }) => {
   }, [chatHistory]);
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 pt-24">
+    <Box sx={{ 
+      flex: 1, 
+      overflow: 'auto', 
+      p: 2,
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%'
+    }}>
       {chatHistory.length === 0 ? (
         // Empty state when no messages exist
-        <div className="flex h-full items-center justify-center text-gray-500">
-          <p>Select a persona and start chatting</p>
-        </div>
+        <Box sx={{ 
+          display: 'flex', 
+          height: '100%', 
+          alignItems: 'center', 
+          justifyContent: 'center'
+        }}>
+          <Typography sx={{ color: 'text.secondary' }}>
+            Select a persona and start chatting
+          </Typography>
+        </Box>
       ) : (
         // Message list when messages exist
-        <div className="space-y-4">
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {chatHistory.map((message, index) => (
-            <div 
+            <Box 
               key={index}
-              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              sx={{ 
+                display: 'flex', 
+                justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start'
+              }}
             >
-              <div 
-                className={`max-w-[80%] rounded-lg px-4 py-2 ${
-                  message.role === 'user' 
-                    ? 'bg-primary text-primary-foreground' 
+              <Box 
+                sx={{ 
+                  maxWidth: '80%', 
+                  borderRadius: 'lg', 
+                  px: 2, 
+                  py: 1,
+                  bgcolor: message.role === 'user' 
+                    ? 'primary.main'
                     : message.role === 'system'
-                    ? 'bg-muted/50 italic'
-                    : 'bg-muted'
-                }`}
+                    ? 'background.level2'
+                    : 'background.level1',
+                  color: message.role === 'user' 
+                    ? 'primary.contrastText' 
+                    : 'text.primary',
+                  fontStyle: message.role === 'system' ? 'italic' : 'normal'
+                }}
               >
                 {message.content}
-              </div>
-            </div>
+              </Box>
+            </Box>
           ))}
-          <div ref={messagesEndRef} />
-        </div>
+          <Box ref={messagesEndRef} />
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -1,6 +1,5 @@
-
 import React, { useState, FormEvent, KeyboardEvent, useRef } from 'react';
-import { Button } from '../ui/button';
+import { Button, Box, Textarea } from '@mui/joy';
 import { Send, FileUp } from 'lucide-react';
 
 /**
@@ -78,75 +77,115 @@ const ChatInputForm: React.FC<ChatInputFormProps> = ({ onSendMessage, isDisabled
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
     
-    // Auto-resize the textarea
+    // Auto-resize the textarea, but limit height
     const textarea = e.target;
     textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
+    const newHeight = Math.min(textarea.scrollHeight, 100); // Limit height to 100px
+    textarea.style.height = `${newHeight}px`;
   };
 
   return (
-    <div className="border-t p-4 flex-shrink-0 bg-background">
-      <form onSubmit={handleSubmit} className="flex gap-2">
+    <Box sx={{
+      p: 2,
+      flexShrink: 0,
+      backgroundColor: 'background.surface'
+    }}>
+      <Box 
+        component="form" 
+        onSubmit={handleSubmit} 
+        sx={{
+          display: 'flex',
+          gap: 2
+        }}
+      >
         {/* Hidden file input */}
         <input 
           type="file"
           ref={fileInputRef}
           onChange={handleFileChange}
-          className="hidden"
+          style={{ display: 'none' }}
           multiple
         />
         
         {/* File upload button with label */}
         <Button 
-          type="button" 
-          variant="outline"
+          variant="outlined"
           onClick={handleFileButtonClick}
           disabled={isDisabled}
           aria-label="Upload file"
-          className="flex items-center h-[84px]"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            height: '84px',
+            minWidth: '80px'
+          }}
         >
-          <FileUp className="h-4 w-4 mr-2" />
-          <span>Files</span>
+          <FileUp style={{ height: '16px', width: '16px', marginRight: '8px' }} />
+          Files
         </Button>
         
         {/* Message textarea - multiline input with auto-resize */}
-        <div className="flex-grow relative">
-          <textarea
-            ref={textareaRef}
+        <Box sx={{ flexGrow: 1, position: 'relative' }}>
+          <Textarea
+            slotProps={{
+              textarea: {
+                ref: textareaRef,
+                onKeyDown: handleKeyPress
+              }
+            }}
             value={message}
             onChange={handleTextareaChange}
-            onKeyDown={handleKeyPress}
             placeholder="Type your message here..."
             aria-label="Chat message"
             disabled={isDisabled}
-            className="w-full min-h-[84px] max-h-[200px] p-2 rounded-md border border-input focus:ring-2 focus:ring-ring focus:outline-none resize-none overflow-y-auto bg-background"
-            style={{ paddingTop: '0.5rem' }}
+            minRows={3}
+            maxRows={4} // Limit max rows to ensure it doesn't get too tall
+            sx={{
+              width: '100%',
+              minHeight: '84px',
+              maxHeight: '100px', // Limit maximum height
+              resize: 'none',
+              overflow: 'auto',
+              backgroundColor: 'background.surface',
+              '&:focus-visible': {
+                outline: 'none',
+                borderColor: 'primary.main',
+                boxShadow: '0 0 0 3px rgba(var(--joy-palette-primary-mainChannel) / 0.3)'
+              }
+            }}
           />
-        </div>
+        </Box>
         
         {/* Send button with Beam button below */}
-        <div className="flex flex-col gap-2">
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
           <Button 
             type="submit" 
             disabled={isDisabled || !message.trim()}
             aria-label="Send message"
+            sx={{ display: 'flex', alignItems: 'center' }}
           >
-            <Send className="h-4 w-4 mr-2" />
+            <Send style={{ height: '16px', width: '16px', marginRight: '8px' }} />
             Send
           </Button>
           
           <Button 
-            type="button"
-            variant="secondary"
-            className="dark:bg-crowe-gold dark:hover:bg-crowe-gold/80 dark:text-black"
+            variant="soft"
+            color="primary"
             disabled={isDisabled}
             aria-label="Beam message"
+            sx={{
+              bgcolor: 'warning.softBg',
+              color: 'warning.softColor',
+              '&:hover': {
+                bgcolor: 'warning.softHoverBg'
+              }
+            }}
           >
             Beam
           </Button>
-        </div>
-      </form>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

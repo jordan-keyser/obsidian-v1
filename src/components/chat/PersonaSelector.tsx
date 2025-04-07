@@ -1,25 +1,12 @@
-
 import React, { memo, useState } from 'react';
 import { 
   BrainCircuit, Palette, Cpu, UserRound, Briefcase, Calculator,
   MoreVertical, ChevronUp, ChevronDown, Trash2, Split, GitBranch
 } from 'lucide-react';
 import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator
-} from '../ui/dropdown-menu';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '../ui/select';
-import { Switch } from '../ui/switch';
-import { Button } from '../ui/button';
+  Box, Button, IconButton, Typography, 
+  Select, Option, Dropdown, Menu, MenuItem, Divider, Switch
+} from '@mui/joy';
 
 export interface Persona {
   id: number;
@@ -29,12 +16,12 @@ export interface Persona {
 }
 
 export const personaData: Persona[] = [
-  { id: 1, title: 'Analyst', icon: <BrainCircuit className="h-6 w-6" />, description: 'For data analysis and insights' },
-  { id: 2, title: 'Creative', icon: <Palette className="h-6 w-6" />, description: 'For creative writing and ideas' },
-  { id: 3, title: 'Technical', icon: <Cpu className="h-6 w-6" />, description: 'For technical questions and solutions' },
-  { id: 4, title: 'Assistant', icon: <UserRound className="h-6 w-6" />, description: 'For general assistance' },
-  { id: 5, title: 'Business', icon: <Briefcase className="h-6 w-6" />, description: 'For business strategy and advice' },
-  { id: 6, title: 'Finance', icon: <Calculator className="h-6 w-6" />, description: 'For financial planning' },
+  { id: 1, title: 'Analyst', icon: <BrainCircuit style={{ height: '24px', width: '24px' }} />, description: 'For data analysis and insights' },
+  { id: 2, title: 'Creative', icon: <Palette style={{ height: '24px', width: '24px' }} />, description: 'For creative writing and ideas' },
+  { id: 3, title: 'Technical', icon: <Cpu style={{ height: '24px', width: '24px' }} />, description: 'For technical questions and solutions' },
+  { id: 4, title: 'Assistant', icon: <UserRound style={{ height: '24px', width: '24px' }} />, description: 'For general assistance' },
+  { id: 5, title: 'Business', icon: <Briefcase style={{ height: '24px', width: '24px' }} />, description: 'For business strategy and advice' },
+  { id: 6, title: 'Finance', icon: <Calculator style={{ height: '24px', width: '24px' }} />, description: 'For financial planning' },
 ];
 
 // Available AI models
@@ -52,21 +39,45 @@ interface PersonaItemProps {
 
 const PersonaItem: React.FC<PersonaItemProps> = memo(({ persona, isSelected, onSelect }) => {
   return (
-    <div 
+    <Box
       onClick={() => onSelect(persona.id)}
-      className={`flex flex-col items-center justify-center p-2 rounded-md cursor-pointer transition-all w-[calc(16.666%-10px)] min-w-[80px] ${
-        isSelected 
-          ? 'bg-crowe-gold/20 border-2 border-crowe-gold' 
-          : 'bg-background hover:bg-muted border border-border'
-      }`}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: 2,
+        borderRadius: 'md',
+        cursor: 'pointer',
+        transition: 'all 0.2s',
+        width: 'calc(16.666% - 10px)',
+        minWidth: '80px',
+        bgcolor: isSelected ? 'warning.softBg' : 'background.surface',
+        border: isSelected ? '2px solid' : '1px solid',
+        borderColor: isSelected ? 'warning.outlinedBorder' : 'divider',
+        '&:hover': {
+          bgcolor: isSelected ? 'warning.softHoverBg' : 'background.level1'
+        }
+      }}
     >
-      <div className={`p-1 rounded-full mb-1 ${
-        isSelected ? 'text-crowe-gold' : 'text-muted-foreground'
-      }`}>
+      <Box 
+        sx={{ 
+          p: 1, 
+          borderRadius: '50%', 
+          mb: 1,
+          color: isSelected ? 'warning.outlinedColor' : 'text.secondary'
+        }}
+      >
         {persona.icon}
-      </div>
-      <span className="font-medium text-xs text-center">{persona.title}</span>
-    </div>
+      </Box>
+      <Typography 
+        level="body-xs" 
+        fontWeight="md" 
+        textAlign="center"
+      >
+        {persona.title}
+      </Typography>
+    </Box>
   );
 });
 
@@ -93,85 +104,124 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
   selectedModel,
   setSelectedModel
 }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  
   const handleClearSelection = () => {
     setSelectedPersona(null);
     setSelectedModel('');
+    setMenuOpen(false);
+  };
+  
+  const handleMenuOpenChange = (_: React.MouseEvent | React.KeyboardEvent | React.FocusEvent, open: boolean) => {
+    setMenuOpen(open);
   };
 
   return (
-    <div className={`py-4 px-6 border-b flex-shrink-0 ${isCollapsed ? 'pb-2' : ''}`}>
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-lg font-medium">Select a Persona</h2>
-        
-        <div className="flex items-center gap-2">
-          {/* Model selection dropdown in center */}
-          <div className="absolute left-1/2 transform -translate-x-1/2">
-            <Select value={selectedModel} onValueChange={setSelectedModel}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select model" />
-              </SelectTrigger>
-              <SelectContent>
-                {models.map(model => (
-                  <SelectItem key={model.id} value={model.id}>
-                    {model.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          {/* Collapse/Expand button with smoother animation */}
-          <Button variant="ghost" size="icon" onClick={onToggleCollapse} className="transition-all duration-300 ease-in-out">
-            {isCollapsed ? 
-              <ChevronDown className="h-4 w-4 transition-transform duration-300 ease-in-out" /> : 
-              <ChevronUp className="h-4 w-4 transition-transform duration-300 ease-in-out" />
-            }
-          </Button>
-          
-          {/* Three dots menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <MoreVertical className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem className="flex items-center justify-between">
-                System messages
-                <Switch 
-                  checked={showSystemMessages} 
-                  onCheckedChange={onToggleSystemMessages} 
-                  className="ml-2"
-                />
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleClearSelection}>
-                <Trash2 className="mr-2 h-4 w-4" />
-                <span>Clear selection</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Split className="mr-2 h-4 w-4" />
-                <span>Split right</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <GitBranch className="mr-2 h-4 w-4" />
-                <span>Branch</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-      
-      {/* Show personas with smooth animation */}
-      <div 
-        className={`transition-all duration-300 ease-in-out overflow-hidden ${
-          isCollapsed ? 'max-h-0 opacity-0' : 'max-h-96 opacity-100'
-        }`}
-        style={{
-          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
+    <Box 
+      sx={{ 
+        py: 2, 
+        px: 3, 
+        borderBottom: '1px solid', 
+        borderColor: 'divider',
+        flexShrink: 0
+      }}
+    >
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between', 
+          mb: 1.5,
+          position: 'relative'
         }}
       >
-        <div className="flex flex-wrap gap-3 justify-between">
+        <Typography level="title-md">Select a Persona</Typography>
+        
+        {/* Model selection dropdown centered */}
+        <Box sx={{ 
+          position: 'absolute', 
+          left: '50%', 
+          transform: 'translateX(-50%)'
+        }}>
+          <Select
+            value={selectedModel}
+            onChange={(_, newValue) => newValue && setSelectedModel(newValue)}
+            sx={{ width: '180px' }}
+            placeholder="Select model"
+          >
+            {models.map(model => (
+              <Option key={model.id} value={model.id}>
+                {model.name}
+              </Option>
+            ))}
+          </Select>
+        </Box>
+        
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {/* Collapse/Expand button */}
+          <IconButton 
+            variant="plain" 
+            onClick={onToggleCollapse}
+            sx={{ transition: 'all 0.3s ease-in-out' }}
+          >
+            {isCollapsed ? 
+              <ChevronDown style={{ height: '16px', width: '16px', transition: 'transform 0.3s ease-in-out' }} /> : 
+              <ChevronUp style={{ height: '16px', width: '16px', transition: 'transform 0.3s ease-in-out' }} />
+            }
+          </IconButton>
+          
+          {/* Three dots menu */}
+          <Dropdown open={menuOpen} onOpenChange={handleMenuOpenChange}>
+            <IconButton 
+              variant="plain" 
+              component="button"
+              onClick={() => setMenuOpen(true)}
+            >
+              <MoreVertical style={{ height: '16px', width: '16px' }} />
+            </IconButton>
+            <Menu
+              placement="bottom-end"
+              size="sm"
+              sx={{ minWidth: '180px' }}
+            >
+              <MenuItem>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <Typography>System messages</Typography>
+                  <Switch
+                    checked={showSystemMessages}
+                    onChange={(e) => onToggleSystemMessages(e.target.checked)}
+                    sx={{ ml: 2 }}
+                  />
+                </Box>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleClearSelection}>
+                <Trash2 style={{ marginRight: '8px', height: '16px', width: '16px' }} />
+                <Typography>Clear selection</Typography>
+              </MenuItem>
+              <MenuItem>
+                <Split style={{ marginRight: '8px', height: '16px', width: '16px' }} />
+                <Typography>Split right</Typography>
+              </MenuItem>
+              <MenuItem>
+                <GitBranch style={{ marginRight: '8px', height: '16px', width: '16px' }} />
+                <Typography>Branch</Typography>
+              </MenuItem>
+            </Menu>
+          </Dropdown>
+        </Box>
+      </Box>
+      
+      {/* Show personas with smooth animation */}
+      <Box 
+        sx={{
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          overflow: 'hidden',
+          maxHeight: isCollapsed ? 0 : '24rem',
+          opacity: isCollapsed ? 0 : 1
+        }}
+      >
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5, justifyContent: 'space-between' }}>
           {personaData.map((persona) => (
             <PersonaItem
               key={persona.id}
@@ -180,9 +230,9 @@ const PersonaSelector: React.FC<PersonaSelectorProps> = ({
               onSelect={setSelectedPersona}
             />
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
