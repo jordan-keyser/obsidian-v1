@@ -62,8 +62,8 @@ const Chat: React.FC = () => {
                 />
               </div>
               
-              {/* Scrollable chat message area with proper padding for bottom input */}
-              <div className="flex-1 overflow-y-auto">
+              {/* Scrollable chat message area */}
+              <div className="flex-1 overflow-hidden">
                 <ChatMessageList 
                   chatHistory={chatHistory.filter(msg => 
                     showSystemMessages || msg.role !== 'system'
@@ -75,7 +75,7 @@ const Chat: React.FC = () => {
               <div className="sticky bottom-0 left-0 right-0 w-full bg-background">
                 <ChatInputForm
                   onSendMessage={sendMessage}
-                  isDisabled={!selectedModel} // Only require a model to be selected
+                  isDisabled={!selectedModel}
                 />
               </div>
             </SidebarInset>
